@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalentHub - Publicar Serviço</title>
+    
+    <!-- Bibliotecas -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="./css/publicar.css">
+</head>
+<body>
+
+<header>
+    <h1 onclick="window.location.href='prestador.html'" class="logo-home">TALENT<span>HUB</span></h1>
+    <a href="meus-servicos.html" class="btn-cancelar">Cancelar</a>
+</header>
+
+<main class="container">
+    <div class="form-card glass">
+        <div class="form-header">
+            <i class="fas fa-bullhorn icon-header"></i>
+            <h2>Novo Anúncio</h2>
+            <p>Preencha os detalhes para alcançar novos clientes.</p>
+        </div>
+
+        <!-- Perfil do Prestador (Visualização) -->
+        <div class="profile-summary">
+            <img src="" id="fotoMiniatura" class="foto-preview">
+            <div class="profile-text">
+                <span class="label-status">Publicando como:</span>
+                <strong id="nomeDono">...</strong>
+            </div>
+        </div>
+        
+        <form id="publicarForm">
+            <div class="input-grid">
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Categoria do Serviço</label>
+                    <select id="categoria" required>
+                        <option value="" disabled selected>Carregando categorias...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-coins"></i> Valor do Serviço (MT)</label>
+                    <input type="text" id="valor" placeholder="Ex: 1500" maxlength="6" required 
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-align-left"></i> Descrição do Trabalho</label>
+                <textarea id="descricao" placeholder="Descreva detalhadamente o que você oferece aos seus clientes..." required></textarea>
+                <span class="hint">Evite usar caracteres especiais para melhor leitura.</span>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> Bairro em Pemba</label>
+                <select id="localizacaoSelect" onchange="verificarOutro(this.value)" required>
+                    <option value="" disabled selected>Onde você atende?</option>
+                    <option value="Natite">Natite</option>
+                    <option value="Expansão">Expansão</option>
+                    <option value="Cariacó">Cariacó</option>
+                    <option value="Paquitequete">Paquitequete</option>
+                    <option value="Alto Gingone">Alto Gingone</option>
+                    <option value="Josina Machel">Josina Machel</option>
+                    <option value="Muxara">Muxara</option>
+                    <option value="Chuiba">Chuiba</option>
+                    <option value="Maunane">Maunane</option>
+                    <option value="Outro">Outro (Especificar)</option>
+                </select>
+            </div>
+
+            <div id="campoOutro" class="form-group slide-in">
+                <label>Especifique o Local</label>
+                <input type="text" id="outraLocalizacao" placeholder="Ex: Bairro Mahate, Rua 5">
+            </div>
+
+            <button type="submit" class="btn-submit" id="btnEnviar">
+                <i class="fas fa-paper-plane"></i> Publicar Agora
+            </button>
+        </form>
+    </div>
+</main>
+
+<script src="./js/publicar.js"></script>
+</body>
+</html>

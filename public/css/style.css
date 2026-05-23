@@ -1,0 +1,86 @@
+:root {
+    --primary: #2c3e50;
+    --secondary: #27ae60; /* Verde Cliente */
+    --accent: #e67e22;    /* Laranja Prestador */
+    --light: #f4f7f6;
+    --dark: #34495e;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+/* Header Geral */
+header {
+    background: var(--primary);
+    color: var(--white);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Botões */
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.btn-login { background: var(--secondary); color: white; }
+.btn-meus-servicos { background: var(--accent); color: white; }
+.btn-voltar { background: #95a5a6; color: white; }
+
+/* Cards de Perfil */
+.grid-perfis {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.badge {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    color: white;
+}
+.badge-cliente { background: var(--secondary); }
+.badge-prestador { background: var(--accent); }
+
+/* Tabelas CRUD */
+table {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th { background: #ecf0f1; }

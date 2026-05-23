@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalentHub - Centro de Comando Admin</title>
+    
+    <!-- Bibliotecas -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <h2 class="logo-admin">TALENT<span>HUB</span> <span class="badge-admin">COMMAND CENTER</span></h2>
+    </div>
+    <div class="header-right">
+        <a href="index.html" class="btn-outline"><i class="fas fa-external-link-alt"></i> Ver Site</a>
+        <button onclick="confirmarSair()" class="btn-logout-admin"><i class="fas fa-power-off"></i> Sair</button>
+    </div>
+</header>
+
+<main>
+    <!-- Painel de Estatísticas -->
+    <div class="stats-grid">
+        <div class="stat-card glass">
+            <i class="fas fa-user-tie icon-stat"></i>
+            <div class="stat-info">
+                <h3>Prestadores</h3>
+                <p id="countPrestadores">0</p>
+            </div>
+        </div>
+        <div class="stat-card glass">
+            <i class="fas fa-users icon-stat"></i>
+            <div class="stat-info">
+                <h3>Clientes</h3>
+                <p id="countClientes">0</p>
+            </div>
+        </div>
+        <div class="stat-card glass" style="border-bottom-color: #9b59b6;">
+            <i class="fas fa-shield-alt icon-stat"></i>
+            <div class="stat-info">
+                <h3>Admins</h3>
+                <p id="countAdmins">0</p>
+            </div>
+        </div>
+        <div class="stat-card glass" style="border-bottom-color: #f1c40f;">
+            <i class="fas fa-star icon-stat"></i>
+            <div class="stat-info">
+                <h3>Avaliações</h3>
+                <p id="countAvaliacoes">0</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegação por Abas -->
+    <div class="tabs-container glass">
+        <button class="tab-btn active" id="btn-prestador" onclick="renderTable('prestador')"><i class="fas fa-user-tie"></i> Prestadores</button>
+        <button class="tab-btn" id="btn-cliente" onclick="renderTable('cliente')"><i class="fas fa-users"></i> Clientes</button>
+        <button class="tab-btn admin-tab" id="btn-admin" onclick="renderTable('admin')"><i class="fas fa-user-shield"></i> Equipa Admin</button>
+        <button class="tab-btn" id="btn-todos-servicos" onclick="renderAllServices()"><i class="fas fa-briefcase"></i> Monitor de Serviços</button>
+        <button class="tab-btn" id="btn-comentarios" onclick="renderAllComments()"><i class="fas fa-comment-dots"></i> Monitor de Feedbacks</button>
+        <button class="tab-btn block-tab" id="btn-bloqueado" onclick="renderTable('bloqueado')"><i class="fas fa-user-slash"></i> Suspensos</button>
+    </div>
+
+    <!-- Área de Dados -->
+    <div class="content-area glass">
+        <table id="adminTable">
+            <thead><tr id="tableHead"></tr></thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+</main>
+
+<!-- Modal de Gestão -->
+<div id="modalAdm" class="modal">
+    <div class="modal-content glass">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h2 id="modalTitle">Gestão de Conta</h2>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<script src="./js/admin.js"></script>
+</body>
+</html>

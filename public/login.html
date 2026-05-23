@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalentHub - Acesso à Rede</title>
+    
+    <!-- Bibliotecas de Estilo e Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="./css/login.css">
+
+    <!-- Firebase Legacy SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+</head>
+<body>
+
+    <!-- Fundo Animado -->
+    <div id="particles-js"></div>
+    <div class="neon-blob"></div>
+    <div class="neon-blob secondary"></div>
+
+    <div class="login-wrapper">
+        <div class="login-card glass-panel" data-aos="zoom-in-up">
+            <div class="card-header">
+                <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Voltar</a>
+                <h1 class="logo">TALENT<span>HUB</span></h1>
+                <p class="subtitle">Autenticação de Segurança</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Endereço de Gmail" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="senha" placeholder="Palavra-passe" required>
+                    <button type="button" class="eye-btn" onclick="togglePassword()">
+                        <i id="icon-eye" class="fas fa-eye"></i>
+                    </button>
+                </div>
+
+                <button type="submit" id="btnEntrar" class="submit-btn">
+                    <span>ENTRAR NO SISTEMA</span>
+                    <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </form>
+
+            <div class="card-footer">
+                <p>Novo por aqui? <a href="cadastro.html">Criar Identidade Digital</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./js/login.js"></script>
+</body>
+</html>

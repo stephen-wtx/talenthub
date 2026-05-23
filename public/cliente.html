@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalentHub - Área de Exploração</title>
+    
+    <!-- Bibliotecas Externas -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+   
+    <link rel="stylesheet" href="./css/cliente.css">
+</head>
+<body>
+
+<header>
+    <!-- Lado Esquerdo -->
+    <div class="nav-group">
+        <a href="index.html" class="logo-home">TALENT<span>HUB</span></a>
+        <a href="index.html" class="btn-nav"><i class="fas fa-home"></i> Início</a>
+    </div>
+
+    <!-- Centro (Painel do Prestador) -->
+    <div id="btnContainer"></div>
+
+    <!-- Lado Direito -->
+    <div class="user-menu">
+        <a href="perfil.html" class="btn-nav"><i class="fas fa-user-gear"></i> Perfil</a>
+        
+        <div class="user-info-wrapper">
+            <span id="nomeUsuario" class="user-name">...</span>
+            <span id="tipoUsuarioBadge" class="user-badge-text">...</span>
+        </div>
+
+        <button onclick="confirmarSair()" class="btn-logout" title="Sair da conta">
+            <i class="fas fa-power-off"></i>
+        </button>
+    </div>
+</header>
+
+<main>
+    <h2 class="page-title">Radar de Talentos em Pemba</h2>
+
+    <div class="filter-bar">
+        <input type="text" id="filtroTexto" placeholder="O que procuras hoje?" onkeyup="carregarServicos()">
+        
+        <select id="filtroCategoria" onchange="carregarServicos()">
+            <option value="">Todas Categorias</option>
+        </select>
+
+        <select id="filtroBairroSelect" onchange="alternarCampoOutro(this.value)">
+            <option value="">Todos os Bairros</option>
+            <option value="Natite">Natite</option>
+            <option value="Expansão">Expansão</option>
+            <option value="Cariacó">Cariacó</option>
+            <option value="Paquitequete">Paquitequete</option>
+            <option value="Alto Gingone">Alto Gingone</option>
+            <option value="Josina Machel">Josina Machel</option>
+            <option value="Muxara">Muxara</option>
+            <option value="Chuiba">Chuiba</option>
+            <option value="Maunane">Maunane</option>
+            <option value="Outro">Outro...</option>
+        </select>
+        <input type="text" id="filtroOutroBairro" placeholder="Digite o bairro..." onkeyup="carregarServicos()">
+    </div>
+
+    <div class="prestadores-grid" id="listaPrestadores"></div>
+</main>
+
+<!-- Modal de Detalhes + Avaliação -->
+<div id="modalPerfil" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <div id="detalhePerfil"></div>
+
+        <div class="evaluation-zone" id="areaAvaliacao">
+            <p class="eval-title">Avaliar este serviço</p>
+            <div class="stars-container" id="estrelasVotacao">
+                <span class="star" onclick="marcarEstrelas(1)">★</span>
+                <span class="star" onclick="marcarEstrelas(2)">★</span>
+                <span class="star" onclick="marcarEstrelas(3)">★</span>
+                <span class="star" onclick="marcarEstrelas(4)">★</span>
+                <span class="star" onclick="marcarEstrelas(5)">★</span>
+            </div>
+            <textarea id="comentarioAvaliacao" rows="3" placeholder="Deixe um comentário sobre o trabalho..."></textarea>
+            <button class="btn-submit-eval" id="btnEnviarAvaliacao">Submeter Avaliação</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="./js/cliente.js"></script>
+</body>
+</html>
