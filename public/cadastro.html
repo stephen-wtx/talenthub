@@ -3,190 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TalentHub - Cadastro</title>
+    <title>TalentHub | Criar Conta</title>
     
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+    <!-- Bibliotecas Externas (Estilos e Ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/styleindex.css">
+    <link rel="stylesheet" href="./css/cadastro.css">
+    <link rel="stylesheet" href="./css/responsive.css">
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .cadastro-container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
-        h2 { color: #2c3e50; text-align: center; margin-bottom: 20px; }
-        label { display: block; margin-top: 10px; color: #34495e; font-weight: bold; }
-        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; outline: none; transition: 0.3s; }
-        input:focus, select:focus { border-color: #3498db; }
-        
-        /* Container para Senha com Botão de Ver */
-        .password-wrapper { position: relative; width: 100%; }
-        .btn-eye { position: absolute; right: 10px; top: 15px; background: none; border: none; cursor: pointer; color: #7f8c8d; font-size: 0.85em; font-weight: bold; }
-
-        .btn-cadastrar { width: 100%; padding: 15px; background-color: #3498db; border: none; color: white; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        .btn-cadastrar:hover { background-color: #2980b9; }
-        .btn-cadastrar:disabled { background-color: #95a5a6; cursor: not-allowed; }
-        .login-link { text-align: center; margin-top: 15px; font-size: 0.9em; }
-        .login-link a { color: #27ae60; text-decoration: none; font-weight: bold; }
-    </style>
+    <!-- Firebase Legacy SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
 </head>
 <body>
 
-<div class="cadastro-container">
-    <h2>Criar Conta no TalentHub</h2>
-    
-    <form id="cadastroForm">
-        <label>Nome Completo</label>
-        <input type="text" id="nome" placeholder="Ex: Arlindo Rosário" required 
-               oninput="this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '')">
+    <!-- Fundo de Partículas -->
+    <div id="particles-js"></div>
 
-        <label>Número de Telefone (9 dígitos)</label>
-        <input type="tel" id="telefone" placeholder="841234567" maxlength="9" required 
-               oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-
-        <label>Gmail</label>
-        <input type="email" id="email" placeholder="exemplo@gmail.com" required>
-
-        <label>Senha</label>
-        <div class="password-wrapper">
-            <input type="password" id="senha" placeholder="Crie uma senha forte" required>
-            <button type="button" class="btn-eye" onclick="togglePassword()">MOSTRAR</button>
+    <!-- Cabeçalho -->
+    <header id="main-header">
+        <div class="header-container">
+            <h1 class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">TALENT<span>HUB</span></a></h1>
+            <nav id="nav-area">
+                <a href="login.html" class="glass-btn login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sessão
+                </a>
+            </nav>
         </div>
+    </header>
 
-        <label>Tipo de Conta (Serviço)</label>
-        <select id="tipoUsuario" required>
-            <option value="" disabled selected>Selecione seu perfil</option>
-            <option value="cliente">Cliente (Quero contratar)</option>
-            <option value="prestador">Prestador de Serviço (Quero trabalhar)</option>
-        </select>
-        
-        <button type="submit" class="btn-cadastrar" id="btnSubmit">FINALIZAR CADASTRO</button>
-    </form>
+    <!-- Seção Principal de Cadastro -->
+    <main class="cadastro-section">
+        <div class="cadastro-card">
+            
+            <div class="card-header">
+                <div class="icon-badge">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h2>Junte-se ao <span>TalentHub</span></h2>
+                <p>Crie a sua conta e conecte-se à maior rede de serviços de Cabo Delgado</p>
+            </div>
 
-    <div class="login-link">
-        Já tem uma conta? <a href="login.html">Faça login aqui</a>
-    </div>
-</div>
+            <form id="cadastroForm">
+                
+                <!-- Grupo 1: Nome e Telefone em Grid -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome"><i class="fas fa-user"></i> Nome Completo</label>
+                        <div class="input-container">
+                            <input type="text" id="nome" placeholder="Ex: Arlindo Rosário" required 
+                                   oninput="this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '')">
+                        </div>
+                    </div>
 
-<script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyBET-amWuWJ0l5_7kGF7jTSw3eRmUB2D8s",
-        authDomain: "talenthub-3301.firebaseapp.com",
-        databaseURL: "https://talenthub-3301-default-rtdb.firebaseio.com",
-        projectId: "talenthub-3301",
-        storageBucket: "talenthub-3301.firebasestorage.app",
-        messagingSenderId: "182103061774",
-        appId: "1:182103061774:web:9820e812dabcb7a65d135f"
-    };
+                    <div class="form-group">
+                        <label for="telefone"><i class="fas fa-phone"></i> Contacto (9 dígitos)</label>
+                        <div class="input-container">
+                            <input type="tel" id="telefone" placeholder="841234567" maxlength="9" required 
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        </div>
+                    </div>
+                </div>
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+                <!-- Grupo 2: Email e Tipo de Conta -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Correio Electrónico</label>
+                        <div class="input-container">
+                            <input type="email" id="email" placeholder="exemplo@gmail.com" required>
+                        </div>
+                    </div>
 
-    // Função para mostrar/esconder senha
-    function togglePassword() {
-        const senhaInput = document.getElementById('senha');
-        const btnEye = document.querySelector('.btn-eye');
-        if (senhaInput.type === "password") {
-            senhaInput.type = "text";
-            btnEye.innerText = "ESCONDER";
-        } else {
-            senhaInput.type = "password";
-            btnEye.innerText = "MOSTRAR";
+                    <div class="form-group">
+                        <label for="tipoUsuario"><i class="fas fa-id-badge"></i> Perfil da Conta</label>
+                        <div class="input-container">
+                            <select id="tipoUsuario" required>
+                                <option value="" disabled selected>Selecione a sua intenção</option>
+                                <option value="cliente">Cliente (Quero Contratar)</option>
+                                <option value="prestador">Prestador (Quero Trabalhar)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grupo 3: Senha e Indicador de Força -->
+                <div class="form-group">
+                    <label for="senha"><i class="fas fa-lock"></i> Palavra-passe</label>
+                    <div class="input-container password-wrapper">
+                        <input type="password" id="senha" placeholder="Crie uma palavra-passe forte" required onkeyup="verificarForcaSenha(this.value)">
+                        <button type="button" class="btn-eye" onclick="togglePassword()" aria-label="Mostrar Senha">
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
+                    <!-- Barra de Força da Senha -->
+                    <div class="strength-meter">
+                        <div class="strength-bar" id="strengthBar"></div>
+                    </div>
+                    <span class="strength-text" id="strengthText">Sua senha deve ter pelo menos 6 caracteres</span>
+                </div>
+
+                <!-- Termos e Condições e Política de Privacidade -->
+                <div class="terms-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="aceitaTermos" required>
+                        <span class="checkmark"></span>
+                        Li e aceito os <a href="javascript:void(0)" onclick="mostrarTermos()">Termos de Uso</a> e a <a href="javascript:void(0)" onclick="mostrarPolitica()">Política de Privacidade</a>.
+                    </label>
+                </div>
+
+                <!-- Botão de Ação -->
+                <button type="submit" class="btn-cadastrar" id="btnSubmit">
+                    <span>CRIAR MINHA CONTA</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="card-footer">
+                <p>Já possui uma conta registada? <a href="login.html">Faça login aqui</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-glass">
+            <p>&copy; 2026 <strong>TalentHub</strong> - FGTI UCM Pemba</p>
+            <p>Criado com <i class="fas fa-heart" style="color: #e74c3c;"></i> por Arlindo Borges</p>
+        </div>
+    </footer>
+
+    <!-- Scripts de Bibliotecas -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <script>
+        // Inicialização de partículas no fundo
+        particlesJS.load('particles-js', 'https://api.jsonbin.io/v3/b/646241ed8e4d5e62c09d8463', function() {});
+
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBET-amWuWJ0l5_7kGF7jTSw3eRmUB2D8s",
+            authDomain: "talenthub-3301.firebaseapp.com",
+            databaseURL: "https://talenthub-3301-default-rtdb.firebaseio.com",
+            projectId: "talenthub-3301",
+            storageBucket: "talenthub-3301.firebasestorage.app",
+            messagingSenderId: "182103061774",
+            appId: "1:182103061774:web:9820e812dabcb7a65d135f"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // Mostrar / Ocultar Senha
+        function togglePassword() {
+            const senhaInput = document.getElementById('senha');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (senhaInput.type === "password") {
+                senhaInput.type = "text";
+                eyeIcon.className = "fas fa-eye-slash";
+            } else {
+                senhaInput.type = "password";
+                eyeIcon.className = "fas fa-eye";
+            }
         }
-    }
 
-    document.getElementById('cadastroForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const btn = document.getElementById('btnSubmit');
-        const nomeInput = document.getElementById('nome').value.trim();
-        const emailInput = document.getElementById('email').value.trim().toLowerCase();
-        const telefoneInput = document.getElementById('telefone').value.trim();
+        // Validador de Força de Senha
+        function verificarForcaSenha(senha) {
+            const bar = document.getElementById('strengthBar');
+            const text = document.getElementById('strengthText');
+            
+            if(senha.length === 0) {
+                bar.style.width = '0%';
+                bar.style.backgroundColor = 'transparent';
+                text.innerText = 'Sua senha deve ter pelo menos 6 caracteres';
+                return;
+            }
 
-        // VALIDAÇÃO DE NOME
-        if (nomeInput.split(' ').length < 2) {
-            Swal.fire({ icon: 'info', title: 'Nome incompleto', text: 'Por favor, insira o seu nome completo (Nome e Apelido).' });
-            return;
+            let forca = 0;
+            if (senha.length >= 6) forca += 30;
+            if (senha.match(/[a-z]/) && senha.match(/[A-Z]/)) forca += 30;
+            if (senha.match(/[0-9]/)) forca += 20;
+            if (senha.match(/[^a-zA-Z0-9]/)) forca += 20;
+
+            bar.style.width = forca + '%';
+
+            if (forca < 40) {
+                bar.style.backgroundColor = '#ef4444';
+                text.innerText = 'Senha Fraca';
+                text.style.color = '#ef4444';
+            } else if (forca < 75) {
+                bar.style.backgroundColor = '#f59e0b';
+                text.innerText = 'Senha Média';
+                text.style.color = '#f59e0b';
+            } else {
+                bar.style.backgroundColor = '#10b981';
+                text.innerText = 'Senha Forte';
+                text.style.color = '#10b981';
+            }
         }
 
-        // VALIDAÇÃO DE TELEFONE
-        if (telefoneInput.length !== 9) {
-            Swal.fire({ icon: 'warning', title: 'Telefone inválido', text: 'O número de telefone deve ter exatamente 9 dígitos.' });
-            return;
+        // Modal dos Termos de Uso
+        function mostrarTermos() {
+            Swal.fire({
+                title: '<i class="fas fa-file-contract" style="color:#38bdf8;"></i> Termos de Uso - TalentHub',
+                html: `
+                    <div style="text-align: left; font-size: 0.9em; color: #f8fafc; max-height: 300px; overflow-y: auto; padding-right: 10px; line-height: 1.6;">
+                        <p style="color:#cbd5e1; margin-bottom:12px;">Bem-vindo ao <strong>TalentHub</strong>. Ao criar uma conta na nossa plataforma, concorda em cumprir com as seguintes condições:</p>
+                        
+                        <h4 style="color:#38bdf8; margin-top:10px; font-size:1em;">1. Veracidade das Informações</h4>
+                        <p style="color:#cbd5e1;">O utilizador compromete-se a fornecer dados reais, incluindo nome completo, contacto de telefone válido e correio electrónico operacional.</p>
+                        
+                        <h4 style="color:#38bdf8; margin-top:10px; font-size:1em;">2. Conduta e Respeito</h4>
+                        <p style="color:#cbd5e1;">É estritamente proibida a publicação de conteúdos ofensivos, falsos ou prestação de serviços ilícitos na cidade de Pemba e arredores.</p>
+                        
+                        <h4 style="color:#38bdf8; margin-top:10px; font-size:1em;">3. Intermediação de Serviços</h4>
+                        <p style="color:#cbd5e1;">O TalentHub actua unicamente como ponte de ligação entre Clientes e Prestadores de Serviços, não se responsabilizando directamente por acordos financeiros ou negociações privadas via WhatsApp.</p>
+                        
+                        <h4 style="color:#38bdf8; margin-top:10px; font-size:1em;">4. Moderação de Contas</h4>
+                        <p style="color:#cbd5e1;">A administração reserva-se o direito de suspender ou eliminar perfis que violem as regras de convivência e qualidade da plataforma.</p>
+                    </div>
+                `,
+                background: '#0f172a',
+                color: '#ffffff',
+                confirmButtonColor: '#38bdf8',
+                confirmButtonText: 'Entendi e Concordo'
+            });
         }
-        
-        btn.innerText = "Validando dados...";
-        btn.disabled = true;
 
-        db.ref('usuarios').once('value', (snapshot) => {
-            const usuarios = snapshot.val();
-            let erroDuplicidade = null;
+        // Modal da Política de Privacidade
+        function mostrarPolitica() {
+            Swal.fire({
+                title: '<i class="fas fa-user-shield" style="color:#38bdf8;"></i> Política de Privacidade',
+                html: `
+                    <div style="text-align: left; font-size: 0.9em; color: #f8fafc; max-height: 300px; overflow-y: auto; padding-right: 10px; line-height: 1.6;">
+                        <p style="color:#cbd5e1; margin-bottom:12px;">A sua privacidade é fundamental para nós. Esta política explica como recolhemos e protegemos os seus dados no <strong>TalentHub</strong>:</p>
+                        
+                        <h4 style="color:#38bdf8; margin-top:10px; font-size:1em;">1. Recolha de Dados</h4>
+                        <p style="color:#cbd5e1;">Recolhemos apenas as informações necessárias para o funcionamento do seu perfil: Nome, Telefone, E-mail e Tipo de Conta.</p>
+                        
+                        <h4 style="color:#38bdf8; margin-top:10px; font-size:1em;">2. Uso das Informações</h4>
+                        <p style="color:#cbd5e1;">Os seus dados de contacto (como o telefone) serão utilizados para permitir que clientes ou prestadores entrem em contacto directo consigo para contratação de serviços.</p>
+                        
+                        <h4 style="color:#38bdf8; margin-top:10px; font-size:1em;">3. Segurança da Informação</h4>
+                        <p style="color:#cbd5e1;">As suas credenciais e dados são armazenados em infraestrutura segura com encriptação e regras de acesso restrito através do Google Firebase.</p>
+                        
+                        <h4 style="color:#38bdf8; margin-top:10px; font-size:1em;">4. Partilha com Terceiros</h4>
+                        <p style="color:#cbd5e1;">O TalentHub não vende nem partilha os seus dados pessoais com terceiros para fins publicitários ou comerciais sem o seu consentimento.</p>
+                    </div>
+                `,
+                background: '#0f172a',
+                color: '#ffffff',
+                confirmButtonColor: '#38bdf8',
+                confirmButtonText: 'Compreendido'
+            });
+        }
 
-            if (usuarios) {
-                for (let key in usuarios) {
-                    const u = usuarios[key];
-                    // Verifica se e-mail já existe
-                    if (u.email.toLowerCase() === emailInput) {
-                        erroDuplicidade = "Este e-mail já está cadastrado!";
-                        break;
-                    }
-                    // Verifica se telefone já existe
-                    if (u.telefone === telefoneInput) {
-                        erroDuplicidade = "Este número de telefone já está em uso!";
-                        break;
-                    }
-                    // Verifica se o nome completo já existe (opcional, mas evita redundância)
-                    if (u.nome.toLowerCase() === nomeInput.toLowerCase()) {
-                        erroDuplicidade = "Já existe uma conta registrada com este nome!";
-                        break;
+        // Envio do formulário
+        document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('btnSubmit');
+            const nomeInput = document.getElementById('nome').value.trim();
+            const emailInput = document.getElementById('email').value.trim().toLowerCase();
+            const telefoneInput = document.getElementById('telefone').value.trim();
+            const senhaInput = document.getElementById('senha').value;
+
+            if (nomeInput.split(' ').length < 2) {
+                Swal.fire({ icon: 'info', title: 'Nome incompleto', text: 'Por favor, insira o seu nome completo (Nome e Apelido).' });
+                return;
+            }
+
+            if (telefoneInput.length !== 9) {
+                Swal.fire({ icon: 'warning', title: 'Contacto inválido', text: 'O número de telefone deve ter exatamente 9 dígitos.' });
+                return;
+            }
+
+            if (senhaInput.length < 6) {
+                Swal.fire({ icon: 'warning', title: 'Senha Curta', text: 'A palavra-passe deve ter no mínimo 6 caracteres.' });
+                return;
+            }
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> A Processar Registo...';
+            btn.disabled = true;
+
+            db.ref('usuarios').once('value', (snapshot) => {
+                const usuarios = snapshot.val();
+                let erroDuplicidade = null;
+
+                if (usuarios) {
+                    for (let key in usuarios) {
+                        const u = usuarios[key];
+                        if (u.email.toLowerCase() === emailInput) {
+                            erroDuplicidade = "Este e-mail já está cadastrado!";
+                            break;
+                        }
+                        if (u.telefone === telefoneInput) {
+                            erroDuplicidade = "Este contacto já está em uso!";
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (erroDuplicidade) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Falha no Cadastro',
-                    text: erroDuplicidade,
-                    confirmButtonColor: '#d33'
-                });
-                btn.innerText = "FINALIZAR CADASTRO";
-                btn.disabled = false;
-            } else {
-                const novosDados = {
-                    nome: nomeInput,
-                    telefone: telefoneInput,
-                    email: emailInput,
-                    senha: document.getElementById('senha').value,
-                    tipo: document.getElementById('tipoUsuario').value,
-                    status: 'ativo', 
-                    dataCriacao: new Date().toLocaleString()
-                };
-
-                db.ref('usuarios').push(novosDados)
-                .then(() => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Conta Criada!',
-                        text: 'Seu registo foi concluído com sucesso.',
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then(() => {
-                        window.location.href = 'login.html';
-                    });
-                })
-                .catch((error) => {
+                if (erroDuplicidade) {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Erro no servidor',
-                        text: 'Erro: ' + error.message
+                        title: 'Falha no Registo',
+                        text: erroDuplicidade,
+                        confirmButtonColor: '#ef4444'
                     });
-                    btn.innerText = "FINALIZAR CADASTRO";
+                    btn.innerHTML = '<span>CRIAR MINHA CONTA</span> <i class="fas fa-arrow-right"></i>';
                     btn.disabled = false;
-                });
-            }
-        });
-    });
-</script>
+                } else {
+                    const novosDados = {
+                        nome: nomeInput,
+                        telefone: telefoneInput,
+                        email: emailInput,
+                        senha: senhaInput,
+                        tipo: document.getElementById('tipoUsuario').value,
+                        status: 'ativo', 
+                        dataCriacao: new Date().toLocaleString()
+                    };
 
+                    db.ref('usuarios').push(novosDados)
+                    .then(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Conta Criada com Sucesso!',
+                            text: 'Bem-vindo ao TalentHub. A redirecionar para o login...',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            window.location.href = 'login.html';
+                        });
+                    })
+                    .catch((error) => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro no Servidor',
+                            text: 'Erro: ' + error.message
+                        });
+                        btn.innerHTML = '<span>CRIAR MINHA CONTA</span> <i class="fas fa-arrow-right"></i>';
+                        btn.disabled = false;
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

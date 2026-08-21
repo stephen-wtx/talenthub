@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TalentHub | O Futuro do Trabalho em Cabo Delgado</title>
     
+    <!-- Tipografia Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Bibliotecas Externas -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/styleindex.css">
+    <link rel="stylesheet" href="./css/responsive.css">
 
     <!-- Firebase Legacy SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
@@ -16,36 +22,146 @@
 </head>
 <body>
 
-    <!-- Fundo de Partículas -->
+    <!-- Fundo Vivo com Imagens de Nuvens Online -->
+    <div class="futuristic-bg-layer">
+        <div class="cloud-img cloud-1"></div>
+        <div class="cloud-img cloud-2"></div>
+        <div class="cloud-img cloud-3"></div>
+        <div class="cyber-orb orb-1"></div>
+        <div class="cyber-orb orb-2"></div>
+    </div>
+
+    <!-- Fundo de Partículas Interativas -->
     <div id="particles-js"></div>
 
+    <!-- Header Estilo Referência -->
     <header id="main-header">
         <div class="header-container">
-            <h1 class="logo">TALENT<span>HUB</span></h1>
-            <nav id="nav-area">
-                <a href="login.html" class="glass-btn login-btn">
-                    <i class="fas fa-user-astronaut"></i> Aceder à Rede
-                </a>
+            <a href="#" class="logo-text">TALENT<span>HUB</span></a>
+            
+            <nav id="nav-area" class="nav-links">
+                <a href="#hero">HOME</a>
+                <a href="#vitrine">TALENTOS</a>
+                <a href="#tecnologia">TECNOLOGIA</a>
+                <a href="#sobre">SOBRE NÓS</a>
+                <a href="#suporte">SUPORTE</a>
             </nav>
+
+            <div class="header-actions">
+                <a href="login.html" class="glass-btn login-btn">
+                    ACEDER À REDE <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
     </header>
 
-    <section class="hero-section">
-        <div class="hero-content" data-aos="zoom-in">
-            <h2>Conectando <span id="typed-text"></span></h2>
-            <p>A maior ecossistema de talentos digitais e manuais de Cabo Delgado.</p>
-            <div class="hero-actions">
-                <a href="#vitrine" class="main-cta">Explorar Talentos</a>
-                <a href="cadastro.html" class="sec-cta">Registar-me</a>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="hero-container">
+            <div class="hero-text-side" data-aos="fade-right">
+                <span class="sub-tagline">PLATAFORMA ULTRARRÁPIDA</span>
+                <h1 class="hero-title">CONSTRUÍDO PARA O <br><span id="typed-text">FUTURO.</span></h1>
+                <p class="hero-description">O maior ecossistema de talentos digitais e manuais de Cabo Delgado. Encontre profissionais qualificados com precisão e velocidade.</p>
+                
+                <div class="hero-actions">
+                    <a href="#vitrine" class="btn-black">EXPLORAR AGORA <i class="fas fa-arrow-right"></i></a>
+                    <a href="cadastro.html" class="btn-outline">REGISTAR-ME</a>
+                </div>
+
+                <!-- 4 Múltiplos Ícones abaixo do botão -->
+                <div class="hero-micro-features">
+                    <div class="feat-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>LATÊNCIA MÍNIMA</span>
+                        <small>&lt; 5MIN</small>
+                    </div>
+                    <div class="feat-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>VERIFICAÇÃO AI</span>
+                        <small>100% SEGURO</small>
+                    </div>
+                    <div class="feat-item">
+                        <i class="fas fa-users"></i>
+                        <span>TALENTOS</span>
+                        <small>VERIFICADOS</small>
+                    </div>
+                    <div class="feat-item">
+                        <i class="fas fa-headset"></i>
+                        <span>SUPORTE UCM</span>
+                        <small>PEMBA LOCAL</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-image-side" data-aos="fade-left">
+                <div class="product-display-card hero-ucm-card">
+                    <div class="badge-tech">A Era da Transição</div>
+                    <img src="./img/tg.jpg" alt="UCM O Futuro Começa Aqui" class="hero-ucm-img">
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Technical Specifications Bar -->
+    <section class="specs-bar-section" id="tecnologia" data-aos="fade-up">
+        <div class="specs-container">
+            <div class="specs-black-title">
+                <span>ESPECIFICAÇÕES</span>
+                <h3>TÉCNICAS</h3>
+            </div>
+            
+            <div class="specs-grid">
+                <div class="spec-col">
+                    <label>CONEXÃO</label>
+                    <strong>Rede UCM 5.3</strong>
+                    <small>Segura | Estável</small>
+                </div>
+                <div class="spec-col">
+                    <label>LATÊNCIA</label>
+                    <strong>5 MINUTOS</strong>
+                    <small>Resposta Imediata</small>
+                </div>
+                <div class="spec-col">
+                    <label>QUALIDADE</label>
+                    <strong>PERFIS VERIFICADOS</strong>
+                    <small>Avaliação Manual</small>
+                </div>
+                <div class="spec-col">
+                    <label>COBERTURA</label>
+                    <strong>PEMBA & REGIÃO</strong>
+                    <small>Cabo Delgado</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Destaque Circular de Latência -->
+    <section class="latency-feature-section" data-aos="fade-up">
+        <div class="latency-container">
+            <div class="latency-text">
+                <h2>RESPOSTA RÁPIDA DE CONEXÃO</h2>
+                <p>Fique à frente com a nossa plataforma de alta velocidade. Encontre e contacte profissionais em tempo real com facilidade absoluta.</p>
+                <a href="#vitrine" class="btn-outline-small">SABER MAIS <i class="fas fa-chevron-right"></i></a>
+            </div>
+
+            <div class="latency-circle-display">
+                <div class="radar-circle">
+                    <div class="radar-inner">
+                        <i class="fas fa-crown"></i>
+                        <span class="big-stat">&lt; 5MIN</span>
+                        <small>CONEXÃO DIRETA</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vitrine de Talentos -->
     <main class="container">
         <section id="vitrine" class="vitrine-section">
             <div class="section-header" data-aos="fade-up">
-                <h3><i class="fas fa-bolt"></i> Talentos em Destaque</h3>
-                <p>Profissionais verificados em Pemba e arredores.</p>
+                <h2>TALENTOS EM DESTAQUE</h2>
+                <p>Profissionais com qualificação verificada prontos para atender suas necessidades.</p>
             </div>
             
             <div class="profiles-wrapper" id="vitrineServicos">
@@ -53,37 +169,103 @@
             </div>
         </section>
 
-        <section class="info-grid">
-            <div class="info-card glass-card" data-aos="fade-right">
-                <i class="fas fa-shield-halved"></i>
-                <h4>Segurança Total</h4>
-                <p>Perfis verificados manualmente pela nossa equipa administrativa.</p>
+        <!-- Grid 4 Colunas -->
+        <section class="four-cards-grid" id="sobre" data-aos="fade-up">
+            <div class="tech-card">
+                <div class="tech-card-icon"><i class="fas fa-sliders-h"></i></div>
+                <h4>Filtro Inteligente</h4>
+                <p>Encontre a categoria exata para o serviço que precisa sem complicações.</p>
             </div>
-            <div class="info-card glass-card" data-aos="fade-up">
-                <i class="fas fa-rocket"></i>
-                <h4>Rapidez</h4>
-                <p>Encontre o profissional que precisa em menos de 5 minutos.</p>
+            <div class="tech-card">
+                <div class="tech-card-icon"><i class="fas fa-shield-virus"></i></div>
+                <h4>Segurança Ativa</h4>
+                <p>Protocolos rígidos de verificação de identidade pela equipe administrativa.</p>
             </div>
-            <div class="info-card glass-card" data-aos="fade-left">
-                <i class="fas fa-microchip"></i>
-                <h4>Inovação</h4>
-                <p>Tecnologia UCM Pemba impulsionando a economia local.</p>
+            <div class="tech-card">
+                <div class="tech-card-icon"><i class="fas fa-bolt"></i></div>
+                <h4>Alta Disponibilidade</h4>
+                <p>Prestadores ativos diariamente preparados para chamados imediatos.</p>
+            </div>
+            <div class="tech-card">
+                <div class="tech-card-icon"><i class="fas fa-laptop-code"></i></div>
+                <h4>Multiplataforma</h4>
+                <p>Acesse pelo smartphone, tablet ou computador com a mesma rapidez.</p>
+            </div>
+        </section>
+
+        <!-- Seção Bloco Preto Angular -->
+        <section class="crafted-section" id="suporte" data-aos="fade-up">
+            <div class="crafted-grid">
+                <div class="crafted-black-card">
+                    <span class="mini-tag">DESIGN PREMIUM</span>
+                    <h2>CRIADO PARA IMPACTAR</h2>
+                    <p>Engenharia de software focada no desenvolvimento socioeconômico e tecnológico de Cabo Delgado.</p>
+                    
+                    <ul class="crafted-check-list">
+                        <li><i class="fas fa-check"></i> Design Intuitivo e Ergonômico</li>
+                        <li><i class="fas fa-check"></i> Carregamento Ultrarrápido</li>
+                        <li><i class="fas fa-check"></i> Controlo Total do Perfil</li>
+                        <li><i class="fas fa-check"></i> Suporte Local Permanente</li>
+                    </ul>
+                </div>
+
+                <div class="crafted-image-card">
+                    <div class="inner-img-box">
+                        <i class="fas fa-award"></i>
+                        <span>QUALIDADE UCM</span>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
+    <!-- Barra de Benefícios no Rodapé -->
+    <section class="footer-benefits-bar">
+        <div class="benefits-container">
+            <div class="benefit-item">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                    <strong>GARANTIA DE QUALIDADE</strong>
+                    <span>Perfis autênticos</span>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-truck-fast"></i>
+                <div>
+                    <strong>RESPOSTA RÁPIDA</strong>
+                    <span>Contacto imediato</span>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-rotate-left"></i>
+                <div>
+                    <strong>FACILIDADE DE USO</strong>
+                    <span>Navegação simples</span>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <i class="fas fa-headset"></i>
+                <div>
+                    <strong>SUPORTE 24/7</strong>
+                    <span>Estamos aqui para ajudar</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
-        <div class="footer-glass">
+        <div class="footer-content">
             <p>&copy; 2026 <strong>TalentHub</strong> - FGTI UCM Pemba</p>
-            <p>Created with <i class="fas fa-heart" style="color: #e74c3c;"></i> by Arlindo Rosário</p>
+            <p class="author">Created with <i class="fas fa-heart" style="color: #000;"></i> by <strong>Arlindo Borges</strong></p>
         </div>
     </footer>
 
-    <!-- Scripts de Bibliotecas -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./js/nav-mobile.js"></script>
     <script src="./js/scriptindex.js"></script>
 </body>
 </html>

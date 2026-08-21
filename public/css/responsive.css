@@ -1,0 +1,242 @@
+/* ==========================================================================
+   TALENTHUB - RESPONSIVIDADE GLOBAL & SISTEMA DE NAVEGAÇÃO MOBILE
+   ========================================================================== */
+
+/* Prevenção rigorosa de overflow global e box-sizing padrão */
+*, *::before, *::after {
+    box-sizing: border-box !important;
+}
+
+html {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    position: relative;
+}
+
+/* Imagens, mídias e vetores fluidos */
+img, video, canvas, svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Garante que os containers respeitem a viewport com padding lateral seguro */
+.container,
+.header-container,
+.hero-container,
+.specs-container,
+.latency-container,
+.benefits-container,
+.client-main,
+.prestador-main,
+.admin-main {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* ==========================================================================
+   MENU HAMBÚRGUER & DRAWER OFFCANVAS (HOME & PÁGINAS COM NAVEGAÇÃO MULTI-LINK)
+   ========================================================================== */
+
+/* Botão Hambúrguer (Oculto no Desktop por padrão) */
+.hamburger-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    color: #000000;
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 6px;
+    z-index: 10002;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    transition: background 0.2s ease;
+}
+
+.hamburger-btn:hover,
+.hamburger-btn:focus-visible {
+    background: rgba(0, 0, 0, 0.08);
+    outline: none;
+}
+
+/* Menu Lateral (Drawer Offcanvas) */
+.mobile-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    right: -100% !important;
+    width: min(85vw, 320px) !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    background: #ffffff !important;
+    z-index: 10001 !important;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 20px !important;
+    gap: 16px !important;
+    transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mobile-drawer.active {
+    right: 0 !important;
+}
+
+.drawer-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    z-index: 10000 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.drawer-overlay.active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.drawer-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding-bottom: 14px !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+}
+
+.drawer-header strong {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    color: #000000 !important;
+    letter-spacing: -0.5px;
+}
+
+.drawer-close-btn {
+    background: transparent !important;
+    border: none !important;
+    font-size: 22px !important;
+    cursor: pointer !important;
+    color: #000000 !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 6px !important;
+    transition: background 0.2s ease !important;
+}
+
+.drawer-close-btn:hover {
+    background: #f1f5f9 !important;
+}
+
+.drawer-body {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 6px !important;
+}
+
+.drawer-body a {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 12px 14px !important;
+    border-radius: 8px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #0f172a !important;
+    text-decoration: none !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    transition: all 0.2s ease !important;
+}
+
+.drawer-body a:hover,
+.drawer-body a:active {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #000000 !important;
+}
+
+/* ==========================================================================
+   BREAKPOINTS RESPONSIVOS DE CABEÇALHO & LAYOUT
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    /* Exibe o botão Hambúrguer */
+    .hamburger-btn {
+        display: flex !important;
+    }
+
+    /* Oculta os links de menu centrais da barra no mobile */
+    .nav-links, 
+    #nav-area:not(.no-hide) {
+        display: none !important;
+    }
+
+    .header-container {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .header-actions {
+        display: flex !important;
+        align-items: center !important;
+        margin-left: auto !important;
+        margin-right: 6px !important;
+    }
+
+    .header-actions .glass-btn,
+    .header-actions .login-btn {
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+        white-space: nowrap !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-actions .glass-btn,
+    .header-actions .login-btn {
+        font-size: 12px !important;
+        padding: 6px 10px !important;
+        gap: 4px !important;
+    }
+
+    .logo-text,
+    .logo-home,
+    .logo a {
+        font-size: clamp(18px, 4.5vw, 22px) !important;
+    }
+}
+
+@media (max-width: 340px) {
+    .header-actions .glass-btn i {
+        display: none !important;
+    }
+    
+    .header-actions .glass-btn {
+        font-size: 11px !important;
+        padding: 6px 8px !important;
+    }
+}

@@ -5,62 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TalentHub - Painel do Profissional</title>
     
+    <!-- Tipografia Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bibliotecas Externas -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="./css/prestador.css">
+    <link rel="stylesheet" href="./css/responsive.css">
 </head>
 <body>
 
-<header>
-    <div class="nav-left">
-        <!-- O span aqui é essencial para o brilho -->
-        <a href="index.html" class="logo-home">TALENT<span>HUB</span></a>
-        <a href="index.html" class="btn-nav"><i class="fas fa-home"></i> Início</a>
-        <a href="meus-servicos.html" class="btn-nav btn-highlight"><i class="fas fa-list-check"></i> Meus Serviços</a>
-    </div>
-    
-    <div class="user-menu">
-        <div class="user-info-header">
-            <span id="nomeHeader">...</span>
-            <img id="imgHeader" src="" class="foto-header">
-        </div>
-        <a href="perfil.html" class="btn-nav"><i class="fas fa-cog"></i> Perfil</a>
-        <button class="btn-logout-icon" onclick="fazerLogout()"><i class="fas fa-power-off"></i></button>
-    </div>
-</header>
-
-<main>
-    <div class="section-header">
-        <h2 class="glow-text">Painel do Profissional</h2>
-        <p>Gerencie sua presença na rede TalentHub.</p>
+    <!-- Fundo Vivo Futurista -->
+    <div class="futuristic-bg-layer">
+        <div class="cloud-img cloud-1"></div>
+        <div class="cloud-img cloud-2"></div>
+        <div class="cyber-orb orb-1"></div>
+        <div class="cyber-orb orb-2"></div>
     </div>
 
-    <section class="reputation-card glass">
-        <div class="rep-main-info">
-            <img id="imgReputacao" src="" class="foto-perfil-rep">
-            <div class="rep-stats">
-                <div class="rep-number" id="mediaNota">0.0</div>
-                <div class="rep-stars" id="estrelasMedia">☆☆☆☆☆</div>
-                <div class="rep-info" id="totalAvaliacoes">A carregar...</div>
+    <header id="main-header">
+        <div class="header-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo-home">TALENT<span>HUB</span></a>
+                <a href="index.html" class="btn-nav btn-text-hide"><i class="fas fa-home"></i> <span>Início</span></a>
+                <a href="meus-servicos.html" class="btn-nav btn-highlight btn-text-hide"><i class="fas fa-list-check"></i> <span>Meus Serviços</span></a>
+            </div>
+            
+            <div class="user-menu">
+                <div class="user-info-header">
+                    <span id="nomeHeader">...</span>
+                    <img id="imgHeader" src="" class="foto-header" alt="Avatar">
+                </div>
+                <a href="perfil.html" class="btn-nav btn-text-hide"><i class="fas fa-cog"></i> <span>Perfil</span></a>
+                <button class="btn-logout-icon" onclick="fazerLogout()" title="Sair da conta"><i class="fas fa-power-off"></i></button>
             </div>
         </div>
-        
-        <div class="rep-actions">
-            <a href="meus-servicos.html" class="link-feedback">Feedbacks dos clientes <i class="fas fa-chevron-right"></i></a>
-            <a href="publicar.html" class="btn-action-primary"><i class="fas fa-plus"></i> Novo Anúncio</a>
+    </header>
+
+    <main class="prestador-main">
+        <div class="section-header">
+            <h2 class="glow-text">Painel do Profissional</h2>
+            <p>Gerencie sua presença na rede TalentHub.</p>
         </div>
-    </section>
 
-    <div class="sub-section-title">
-        <h3><i class="fas fa-users-viewfinder"></i> Outros Talentos na Rede</h3>
-    </div>
-    
-    <div class="preview-grid" id="listaPreview"></div>
-</main>
+        <section class="reputation-card glass-panel">
+            <div class="rep-main-info">
+                <img id="imgReputacao" src="" class="foto-perfil-rep" alt="Foto Perfil">
+                <div class="rep-stats">
+                    <div class="rep-number" id="mediaNota">0.0</div>
+                    <div class="rep-stars" id="estrelasMedia">☆☆☆☆☆</div>
+                    <div class="rep-info" id="totalAvaliacoes">A carregar...</div>
+                </div>
+            </div>
+            
+            <div class="rep-actions">
+                <a href="meus-servicos.html" class="link-feedback">Feedbacks dos clientes <i class="fas fa-chevron-right"></i></a>
+                <a href="publicar.html" class="btn-action-primary"><i class="fas fa-plus"></i> Novo Anúncio</a>
+            </div>
+        </section>
 
-<script src="./js/prestador.js"></script>
+        <div class="sub-section-title">
+            <h3><i class="fas fa-users-viewfinder"></i> Outros Talentos na Rede</h3>
+        </div>
+        
+        <div class="preview-grid" id="listaPreview"></div>
+    </main>
+
+    <script src="./js/prestador.js"></script>
 </body>
 </html>

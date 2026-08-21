@@ -22,6 +22,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// Forçar início no topo ao carregar
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+
 const userLogado = JSON.parse(localStorage.getItem('usuarioAtual'));
 if (!userLogado) window.location.href = 'login.html';
 
@@ -51,7 +56,7 @@ function carregarServicos() {
         document.getElementById('contadorServicos').innerText = `Total: ${meusServicosKeys.length} anúncio(s)`;
 
         if (meusServicosKeys.length === 0) {
-            tabela.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:50px; color:#64748b;">Nenhum serviço publicado.</td></tr>';
+            tabela.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:50px; color:var(--color-gray-medium);">Nenhum serviço publicado.</td></tr>';
             return;
         }
 
@@ -65,12 +70,12 @@ function carregarServicos() {
             tabela.innerHTML += `
                 <tr>
                     <td>
-                        <img src="${fotoUrl}" class="foto-tabela">
+                        <img src="${fotoUrl}" class="foto-tabela" alt="Dono">
                         <span class="badge-categoria">${s.categoria}</span>
                     </td>
-                    <td style="color:#94a3b8; font-size:0.9em;">${s.descricao.substring(0, 40)}...</td>
-                    <td style="font-weight:bold; color:var(--success);">${s.valor} MT</td>
-                    <td style="color:#cbd5e1;">📍 ${s.localizacao}</td>
+                    <td style="color:var(--color-gray-medium); font-size:14px;">${s.descricao.substring(0, 40)}...</td>
+                    <td style="font-weight:700; color:var(--color-black);">${s.valor} MT</td>
+                    <td style="color:var(--color-gray-dark);">📍 ${s.localizacao}</td>
                     <td style="text-align: center; white-space: nowrap;">
                         <button class="btn-action feed" title="Ver Feedbacks" onclick="verFeedServico('${s.categoria}')"><i class="fas fa-comment"></i> ${totalFeeds}</button>
                         <button class="btn-action edit" title="Editar" onclick="abrirEdicao('${key}')"><i class="fas fa-edit"></i></button>
@@ -105,7 +110,15 @@ document.getElementById('formEditar').onsubmit = function(e) {
     };
 
     db.ref('servicos/' + key).update(novosDados).then(() => {
-        Swal.fire({ icon: 'success', title: 'Atualizado!', text: 'Anúncio atualizado com sucesso.', background: '#1e293b', color: '#fff', timer: 1500, showConfirmButton: false });
+        Swal.fire({ 
+            icon: 'success', 
+            title: 'Atualizado!', 
+            text: 'Anúncio atualizado com sucesso.', 
+            background: '#ffffff', 
+            color: '#000000', 
+            timer: 1500, 
+            showConfirmButton: false 
+        });
         fecharModal('modalEdit');
     });
 }
@@ -120,7 +133,7 @@ window.verFeedServico = function(categoria) {
         
         container.innerHTML = '';
         if (feedsFiltrados.length === 0) {
-            container.innerHTML = `<p style="text-align:center; padding:30px; color:#64748b;">Ainda não existem comentários para este serviço.</p>`;
+            container.innerHTML = `<p style="text-align:center; padding:30px; color:var(--color-gray-medium);">Ainda não existem comentários para este serviço.</p>`;
         } else {
             feedsFiltrados.reverse().forEach(f => {
                 const u = usuarios.find(user => user.email === f.cliente);
@@ -131,10 +144,10 @@ window.verFeedServico = function(categoria) {
                         <div class="stars">${"★".repeat(f.nota)}${"☆".repeat(5-f.nota)}</div>
                         <div style="display:flex; align-items:center; justify-content:space-between;">
                             <div style="display:flex; align-items:center;">
-                                <img src="${fotoCliente}" style="width:30px; height:30px; border-radius:50%; margin-right:10px; border:1px solid var(--accent);">
-                                <span style="font-weight:bold; font-size:0.9em;">${u ? u.nome : 'Cliente'}</span>
+                                <img src="${fotoCliente}" style="width:28px; height:28px; border-radius:50%; margin-right:10px; border:1px solid var(--color-black); object-fit:cover;">
+                                <span style="font-weight:700; font-size:14px; color:var(--color-black);">${u ? u.nome : 'Cliente'}</span>
                             </div>
-                            <span style="font-size:0.7em; color:#64748b;">${f.data}</span>
+                            <span style="font-size:12px; color:var(--color-gray-medium);">${f.data}</span>
                         </div>
                         <p class="comentario-texto">"${f.comentario || 'Sem comentário escrito.'}"</p>
                     </div>`;
@@ -149,8 +162,8 @@ window.removerServico = function(firebaseKey) {
         title: 'Remover Anúncio?',
         text: "Esta ação apagará o serviço permanentemente da rede!",
         icon: 'warning',
-        background: '#1e293b',
-        color: '#fff',
+        background: '#ffffff',
+        color: '#000000',
         showCancelButton: true,
         confirmButtonColor: '#ef4444',
         confirmButtonText: 'Sim, eliminar!',
@@ -158,7 +171,14 @@ window.removerServico = function(firebaseKey) {
     }).then((result) => {
         if (result.isConfirmed) {
             db.ref('servicos/' + firebaseKey).remove().then(() => {
-                Swal.fire({ icon: 'success', title: 'Eliminado!', background: '#1e293b', color: '#fff', timer: 1500, showConfirmButton: false });
+                Swal.fire({ 
+                    icon: 'success', 
+                    title: 'Eliminado!', 
+                    background: '#ffffff', 
+                    color: '#000000', 
+                    timer: 1500, 
+                    showConfirmButton: false 
+                });
             });
         }
     });

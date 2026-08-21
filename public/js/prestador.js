@@ -1,3 +1,4 @@
+// Configuração Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyBET-amWuWJ0l5_7kGF7jTSw3eRmUB2D8s",
     authDomain: "talenthub-3301.firebaseapp.com",
@@ -10,6 +11,11 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+
+// Forçar início no topo ao carregar
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
 
 const userLogado = JSON.parse(localStorage.getItem('usuarioAtual'));
 
@@ -64,7 +70,7 @@ function carregarPainel() {
         });
 
         if (outrosColegas.length === 0) {
-            container.innerHTML = '<p style="color:#64748b; grid-column:1/-1; text-align:center;">Você é o único profissional online agora.</p>';
+            container.innerHTML = '<p style="color:var(--color-gray-medium); grid-column:1/-1; text-align:center; font-size:15px;">Você é o único profissional online agora.</p>';
         } else {
             outrosColegas.reverse().slice(0, 8).forEach(p => {
                 const serv = servicos.filter(s => s.emailPrestador === p.email).pop();
@@ -72,10 +78,10 @@ function carregarPainel() {
                     const fotoColega = definirFoto(p);
                     container.innerHTML += `
                         <div class="card-mini">
-                            <img src="${fotoColega}" class="avatar-mini">
+                            <img src="${fotoColega}" class="avatar-mini" alt="${p.nome}">
                             <span class="servico-label">${serv.categoria}</span>
-                            <strong style="font-size:0.9em; color:#fff;">${p.nome}</strong>
-                            <p style="font-size: 0.7em; color: #94a3b8; margin: 5px 0;">📍 ${serv.localizacao}</p>
+                            <strong style="font-size:15px; color:var(--color-black); display:block; margin:2px 0;">${p.nome}</strong>
+                            <p style="font-size: 13px; color: var(--color-gray-medium); margin: 4px 0 10px 0;">📍 ${serv.localizacao}</p>
                             <button class="btn-perfil-mini" onclick="window.location.href='cliente.html'">
                                 Ver na Rede
                             </button>
@@ -92,10 +98,10 @@ function fazerLogout() {
         title: 'Sair do Painel?',
         text: "Terá de fazer login novamente para acessar.",
         icon: 'warning',
-        background: '#1e293b',
-        color: '#fff',
+        background: '#ffffff',
+        color: '#000000',
         showCancelButton: true,
-        confirmButtonColor: '#ef4444',
+        confirmButtonColor: '#000000',
         confirmButtonText: 'Sair',
         cancelButtonText: 'Cancelar'
     }).then((result) => {

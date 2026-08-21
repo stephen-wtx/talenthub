@@ -12,21 +12,28 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// Animações
-AOS.init();
+// Inicializar Animações AOS
+AOS.init({ duration: 800, once: true });
+
+// Forçar início no topo
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
 
 // Partículas de fundo (estilo discreto)
-particlesJS('particles-js', {
-    "particles": {
-        "number": { "value": 40 },
-        "color": { "value": "#38bdf8" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.3 },
-        "size": { "value": 2 },
-        "line_linked": { "enable": true, "distance": 150, "color": "#38bdf8", "opacity": 0.2, "width": 1 },
-        "move": { "enable": true, "speed": 1 }
-    }
-});
+if (document.getElementById('particles-js')) {
+    particlesJS('particles-js', {
+        "particles": {
+            "number": { "value": 30 },
+            "color": { "value": "#000000" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.15 },
+            "size": { "value": 2.5 },
+            "line_linked": { "enable": true, "distance": 150, "color": "#000000", "opacity": 0.08, "width": 1 },
+            "move": { "enable": true, "speed": 1 }
+        }
+    });
+}
 
 function togglePassword() {
     const input = document.getElementById('senha');
@@ -70,7 +77,14 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
 
         if (user) {
             if (user.status === 'bloqueado') {
-                Swal.fire({ icon: 'warning', title: 'Acesso Negado', text: 'Conta suspensa pelo sistema.', background: '#0f172a', color: '#fff' });
+                Swal.fire({ 
+                    icon: 'warning', 
+                    title: 'Acesso Negado', 
+                    text: 'Conta suspensa pelo sistema.', 
+                    background: '#ffffff', 
+                    color: '#000000',
+                    confirmButtonColor: '#000000'
+                });
                 btn.innerHTML = `<span>ENTRAR NO SISTEMA</span> <i class="fas fa-sign-in-alt"></i>`;
                 btn.disabled = false;
                 return;
@@ -79,7 +93,14 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
             localStorage.setItem('usuarioAtual', JSON.stringify(user));
             window.location.href = user.tipo === 'admin' ? 'admin.html' : (user.tipo === 'prestador' ? 'prestador.html' : 'cliente.html');
         } else {
-            Swal.fire({ icon: 'error', title: 'Erro de Login', text: 'Credenciais inválidas.', background: '#0f172a', color: '#fff' });
+            Swal.fire({ 
+                icon: 'error', 
+                title: 'Erro de Login', 
+                text: 'Credenciais inválidas.', 
+                background: '#ffffff', 
+                color: '#000000',
+                confirmButtonColor: '#000000'
+            });
             btn.innerHTML = `<span>ENTRAR NO SISTEMA</span> <i class="fas fa-sign-in-alt"></i>`;
             btn.disabled = false;
         }

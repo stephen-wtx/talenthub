@@ -1,3 +1,4 @@
+// Configuração Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyBET-amWuWJ0l5_7kGF7jTSw3eRmUB2D8s",
     authDomain: "talenthub-3301.firebaseapp.com",
@@ -11,6 +12,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// Forçar início no topo ao carregar
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+
 const usuarioAtivo = JSON.parse(localStorage.getItem('usuarioAtual'));
 if (!usuarioAtivo) window.location.href = 'login.html';
 
@@ -22,11 +28,11 @@ btnVoltar.onclick = () => window.location.href = urlRetorno;
 document.getElementById('editEmail').value = usuarioAtivo.email;
 document.getElementById('editNome').value = usuarioAtivo.nome;
 document.getElementById('editTelefone').value = usuarioAtivo.telefone || "";
-if(usuarioAtivo.fotoBase64) document.getElementById('imgPreview').src = usuarioAtivo.fotoBase64;
+if (usuarioAtivo.fotoBase64) document.getElementById('imgPreview').src = usuarioAtivo.fotoBase64;
 
 let fotoFinalBase64 = usuarioAtivo.fotoBase64 || "";
 
-function toggleNovaSenha() {
+window.toggleNovaSenha = function() {
     const area = document.getElementById('areaNovaSenha');
     const btn = document.querySelector('.btn-toggle-password');
     if (area.style.display === "block") {
@@ -37,11 +43,11 @@ function toggleNovaSenha() {
         area.style.display = "block";
         btn.innerText = "Cancelar Mudança";
     }
-}
+};
 
 document.getElementById('fileInput').addEventListener('change', function(e) {
     const file = e.target.files[0];
-    if(!file) return;
+    if (!file) return;
 
     const reader = new FileReader();
     reader.onload = function(event) {
@@ -82,8 +88,9 @@ document.getElementById('perfilForm').addEventListener('submit', function(e) {
                 icon: 'error',
                 title: 'Senha Incorreta',
                 text: 'A senha atual introduzida não confere.',
-                background: '#1e293b',
-                color: '#fff'
+                background: '#ffffff',
+                color: '#000000',
+                confirmButtonColor: '#ef4444'
             });
             btn.disabled = false;
             btn.innerText = "Salvar Alterações";
@@ -96,14 +103,15 @@ document.getElementById('perfilForm').addEventListener('submit', function(e) {
             fotoBase64: fotoFinalBase64
         };
 
-        if(novaSenha !== "") {
-            if(novaSenha.length < 4) {
+        if (novaSenha !== "") {
+            if (novaSenha.length < 4) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Senha Curta',
                     text: 'A nova senha deve ter no mínimo 4 caracteres.',
-                    background: '#1e293b',
-                    color: '#fff'
+                    background: '#ffffff',
+                    color: '#000000',
+                    confirmButtonColor: '#000000'
                 });
                 btn.disabled = false;
                 btn.innerText = "Salvar Alterações";
@@ -116,15 +124,15 @@ document.getElementById('perfilForm').addEventListener('submit', function(e) {
             usuarioAtivo.nome = updates.nome;
             usuarioAtivo.telefone = updates.telefone;
             usuarioAtivo.fotoBase64 = updates.fotoBase64;
-            if(updates.senha) usuarioAtivo.senha = updates.senha;
+            if (updates.senha) usuarioAtivo.senha = updates.senha;
             localStorage.setItem('usuarioAtual', JSON.stringify(usuarioAtivo));
 
             Swal.fire({
                 icon: 'success',
                 title: 'Perfil Atualizado',
                 text: 'Seus dados foram gravados com sucesso!',
-                background: '#1e293b',
-                color: '#fff',
+                background: '#ffffff',
+                color: '#000000',
                 timer: 2000,
                 showConfirmButton: false
             }).then(() => {

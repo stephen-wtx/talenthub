@@ -5,74 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TalentHub - Editar Perfil</title>
     
+    <!-- Tipografia Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Bibliotecas Externas -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Ficheiro CSS -->
+    <!-- Ficheiros CSS -->
     <link rel="stylesheet" href="./css/perfil.css">
+    <link rel="stylesheet" href="./css/responsive.css">
 </head>
 <body>
 
-<header>
-    <h2 class="logo-text">TALENT<span>HUB</span></h2>
-    <div id="linkVoltar" class="btn-voltar"><i class="fas fa-arrow-left"></i> Voltar</div>
-</header>
-
-<div class="container">
-    <div class="photo-section">
-        <div class="profile-img-container">
-            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="imgPreview" class="profile-img" title="Clique para mudar a foto" onclick="document.getElementById('fileInput').click()">
-        </div>
-        <label for="fileInput" class="photo-label"><i class="fas fa-camera"></i> Mudar Foto de Perfil</label>
-        <input type="file" id="fileInput" accept="image/*">
+    <!-- Fundo Vivo Futurista -->
+    <div class="futuristic-bg-layer">
+        <div class="cloud-img cloud-1"></div>
+        <div class="cloud-img cloud-2"></div>
+        <div class="cyber-orb orb-1"></div>
+        <div class="cyber-orb orb-2"></div>
     </div>
 
-    <form id="perfilForm">
-        <div class="form-group">
-            <label>E-mail de Login</label>
-            <input type="email" id="editEmail" disabled>
+    <header id="main-header">
+        <div class="header-container">
+            <h2 class="logo-text">TALENT<span>HUB</span></h2>
+            <div id="linkVoltar" class="btn-voltar"><i class="fas fa-arrow-left"></i> Voltar</div>
         </div>
+    </header>
 
-        <div class="form-group">
-            <label>Nome Completo</label>
-            <input type="text" id="editNome" required placeholder="Seu nome" oninput="this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '')">
-        </div>
-
-        <div class="form-group">
-            <label>Telefone para Contato</label>
-            <input type="tel" id="editTelefone" maxlength="9" required placeholder="Ex: 840000000" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-            <span class="input-hint">Apenas números (9 dígitos)</span>
-        </div>
-
-        <div class="password-section">
-            <div class="password-header">
-                <label style="margin:0">Segurança</label>
-                <button type="button" class="btn-toggle-password" onclick="toggleNovaSenha()">Mudar Senha?</button>
-            </div>
-            
-            <div class="form-group">
-                <label>Senha Atual</label>
-                <input type="password" id="senhaAtual" placeholder="Confirme sua senha atual" required>
-                <span class="input-hint">Necessária para salvar qualquer alteração</span>
-            </div>
-            
-            <div id="areaNovaSenha">
-                <div class="form-group" style="margin:0">
-                    <label>Nova Senha</label>
-                    <input type="password" id="novaSenha" placeholder="Digite a nova senha">
-                    <span class="input-hint">Mínimo 4 caracteres.</span>
+    <main class="container">
+        <div class="profile-card glass-panel">
+            <div class="photo-section">
+                <div class="profile-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="imgPreview" class="profile-img" title="Clique para mudar a foto" onclick="document.getElementById('fileInput').click()" alt="Foto de perfil">
                 </div>
+                <label for="fileInput" class="photo-label"><i class="fas fa-camera"></i> Mudar Foto de Perfil</label>
+                <input type="file" id="fileInput" accept="image/*">
             </div>
+
+            <form id="perfilForm">
+                <div class="form-group">
+                    <label for="editEmail">E-mail de Login</label>
+                    <input type="email" id="editEmail" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="editNome">Nome Completo</label>
+                    <input type="text" id="editNome" required placeholder="Seu nome" oninput="this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '')">
+                </div>
+
+                <div class="form-group">
+                    <label for="editTelefone">Telefone para Contacto</label>
+                    <input type="tel" id="editTelefone" maxlength="9" required placeholder="Ex: 840000000" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <span class="input-hint">Apenas números (9 dígitos)</span>
+                </div>
+
+                <div class="password-section">
+                    <div class="password-header">
+                        <label style="margin:0">Segurança</label>
+                        <button type="button" class="btn-toggle-password" onclick="toggleNovaSenha()">Mudar Senha?</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="senhaAtual">Senha Atual</label>
+                        <input type="password" id="senhaAtual" placeholder="Confirme sua senha atual" required autocomplete="current-password">
+                        <span class="input-hint">Necessária para salvar qualquer alteração</span>
+                    </div>
+                    
+                    <div id="areaNovaSenha">
+                        <div class="form-group" style="margin:0">
+                            <label for="novaSenha">Nova Senha</label>
+                            <input type="password" id="novaSenha" placeholder="Digite a nova senha" autocomplete="new-password">
+                            <span class="input-hint">Mínimo 4 caracteres.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" id="btnSalvar" class="btn-salvar">Salvar Alterações</button>
+            </form>
         </div>
+    </main>
 
-        <button type="submit" id="btnSalvar" class="btn-salvar">Salvar Alterações</button>
-    </form>
-</div>
-
-<!-- Ficheiro JS -->
-<script src="./js/perfil.js"></script>
+    <!-- Ficheiro JS -->
+    <script src="./js/perfil.js"></script>
 </body>
 </html>

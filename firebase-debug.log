@@ -1,0 +1,52 @@
+[debug] [2026-05-21T19:00:15.821Z] ----------------------------------------------------------------------
+[debug] [2026-05-21T19:00:15.824Z] Command:       /usr/bin/node /usr/bin/firebase login --reauth
+[debug] [2026-05-21T19:00:15.824Z] CLI Version:   15.18.0
+[debug] [2026-05-21T19:00:15.824Z] Platform:      linux
+[debug] [2026-05-21T19:00:15.825Z] Node Version:  v20.19.6
+[debug] [2026-05-21T19:00:15.825Z] Time:          Thu May 21 2026 20:00:15 GMT+0100 (Hora de verão da Europa Ocidental)
+[debug] [2026-05-21T19:00:15.825Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://accounts.google.com/o/oauth2/auth?client_id=563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com&scope=email%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloudplatformprojects.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Ffirebase%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&response_type=code&state=197313903&redirect_uri=http%3A%2F%2Flocalhost%3A9005
+[info] 
+[info] Waiting for authentication...
+[debug] [2026-05-21T19:00:37.133Z] >>> [apiv2][query] POST https://accounts.google.com/o/oauth2/token [none]
+[debug] [2026-05-21T19:00:37.134Z] >>> [apiv2][body] POST https://accounts.google.com/o/oauth2/token [omitted]
+[debug] [2026-05-21T19:00:37.444Z] *** [apiv2] error from fetch(https://accounts.google.com/o/oauth2/token, {"headers":{},"method":"POST","body":{"_overheadLength":543,"_valueLength":208,"_valuesToMeasure":[],"writable":false,"readable":true,"dataSize":0,"maxDataSize":2097152,"pauseStreams":true,"_released":true,"_streams":[],"_currentStream":null,"_insideLoop":false,"_pendingNext":false,"_boundary":"--------------------------078bd402f04e98dce4622010","_events":{},"_eventsCount":1}}): FetchError: request to https://accounts.google.com/o/oauth2/token failed, reason: 
+[debug] [2026-05-21T19:00:37.445Z] Token Fetch Error: FirebaseError: Failed to make request to https://accounts.google.com/o/oauth2/token
+    at RetryOperation._fn (/usr/lib/node_modules/firebase-tools/lib/apiv2.js:282:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2026-05-21T19:00:37.465Z] >>> [apiv2][query] POST https://auth.firebase.tools/attest [none]
+[debug] [2026-05-21T19:00:37.465Z] >>> [apiv2][body] POST https://auth.firebase.tools/attest {"session_id":"6448663e-3741-402d-9ced-d44bf9841491"}
+[debug] [2026-05-21T19:00:39.794Z] <<< [apiv2][status] POST https://auth.firebase.tools/attest 200
+[debug] [2026-05-21T19:00:39.795Z] <<< [apiv2][body] POST https://auth.firebase.tools/attest {"token":"xq_E7L8-V2qUCtjLq22XfVCigZiJTASQaFjTPx3q78E"}
+[info] 
+[info] To sign in to the Firebase CLI:
+[info] 
+[info] 1. Take note of your session ID:
+[info] 
+[info]    64486
+[info] 
+[info] 2. Visit the URL below on any device and follow the instructions to get your code:
+[info] 
+[info]    https://auth.firebase.tools/login?code_challenge=dwuKa-klbAIxXT_z6vsGeaD82knZ1FlScHTMdNAG8lM&session=6448663e-3741-402d-9ced-d44bf9841491&attest=xq_E7L8-V2qUCtjLq22XfVCigZiJTASQaFjTPx3q78E
+[info] 
+[info] 3. Paste or enter the authorization code below once you have it:
+[info] 
+[debug] [2026-05-21T19:02:58.943Z] ExitPromptError: User force closed the prompt with SIGINT
+    at Interface.sigint (/usr/lib/node_modules/firebase-tools/node_modules/@inquirer/core/dist/commonjs/lib/create-prompt.js:101:37)
+    at Interface.emit (node:events:524:28)
+    at [_ttyWrite] [as _ttyWrite] (node:internal/readline/interface:1134:18)
+    at ReadStream.onkeypress (node:internal/readline/interface:267:20)
+    at ReadStream.emit (node:events:536:35)
+    at emitKeys (node:internal/readline/utils:371:14)
+    at emitKeys.next (<anonymous>)
+    at ReadStream.onData (node:internal/readline/emitKeypressEvents:64:36)
+    at ReadStream.emit (node:events:524:28)
+    at addChunk (node:internal/streams/readable:561:12)
+[error] 
+[error] Error: An unexpected error has occurred.

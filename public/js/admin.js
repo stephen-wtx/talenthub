@@ -13,6 +13,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// Forçar início no topo ao carregar
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+
 const userLogado = JSON.parse(localStorage.getItem('usuarioAtual'));
 if (!userLogado || userLogado.tipo !== 'admin') window.location.href = 'login.html';
 
@@ -39,16 +44,16 @@ window.verDetalhes = function(userKey) {
 
         modalBody.innerHTML = `
             <div style="text-align:center; margin-bottom:20px;">
-                <img src="${fotoUrl}" style="width:90px; height:90px; border-radius:50%; border:3px solid var(--accent);">
-                <h3 style="margin:10px 0;">${u.nome}</h3>
-                <span class="tag" style="background:var(--accent)">${u.tipo.toUpperCase()}</span>
+                <img src="${fotoUrl}" style="width:80px; height:80px; border-radius:50%; border:2px solid var(--color-black); object-fit:cover;">
+                <h3 style="margin:10px 0 4px; font-size:18px; font-weight:700; color:var(--color-black);">${u.nome}</h3>
+                <span class="tag" style="background:var(--color-black); color:#fff;">${u.tipo.toUpperCase()}</span>
             </div>
             <div class="detalhe-item"><span class="info-label">E-mail:</span><span class="info-valor">${u.email}</span></div>
             <div class="detalhe-item"><span class="info-label">Telefone:</span><span class="info-valor">${u.telefone || 'N/A'}</span></div>
             <div class="detalhe-item"><span class="info-label">Status:</span><span class="info-valor">${u.status}</span></div>
             
-            <h4 style="margin:20px 0 10px;">Serviços (${seusServicos.length})</h4>
-            ${seusServicos.map(s => `<div style="font-size:0.8em; background:rgba(255,255,255,0.05); padding:8px; border-radius:8px; margin-bottom:5px;"><strong>${s.categoria}</strong> - ${s.localizacao}</div>`).join('') || '<p style="color:#64748b">Nenhum serviço.</p>'}
+            <h4 style="margin:20px 0 10px; font-size:15px; font-weight:700; color:var(--color-black);">Serviços (${seusServicos.length})</h4>
+            ${seusServicos.map(s => `<div style="font-size:14px; background:var(--bg-alt); border:1px solid var(--color-gray-light); padding:10px; border-radius:6px; margin-bottom:6px; color:var(--color-black);"><strong>${s.categoria}</strong> - ${s.localizacao}</div>`).join('') || '<p style="color:var(--color-gray-medium); font-size:14px;">Nenhum serviço.</p>'}
         `;
         document.getElementById('modalAdm').style.display = 'block';
     });
@@ -74,8 +79,8 @@ function renderTable(tipo) {
                 const aval = Object.values(data.avaliacoes).filter(a => a.prestador === u.email);
                 const media = aval.length ? (aval.reduce((a,b) => a+b.nota, 0)/aval.length).toFixed(1) : "N/A";
                 
-                let acoes = isMaster ? `<span class="tag tag-master">MASTER</span>` : (souEu ? `<span class="tag" style="background:#22c55e">VOCÊ</span>` : `
-                    <button class="btn-action" onclick="verDetalhes('${key}')">Gerir</button>
+                let acoes = isMaster ? `<span class="tag tag-master">MASTER</span>` : (souEu ? `<span class="tag" style="background:#10b981; color:#fff;">VOCÊ</span>` : `
+                    <button class="btn-action" onclick="verDetalhes('${key}')">Ver</button>
                     <button class="btn-action btn-block" onclick="alterarStatus('${key}', '${u.status === 'bloqueado' ? 'ativo' : 'bloqueado'}')">${u.status === 'bloqueado' ? 'Reativar' : 'Suspender'}</button>
                     <button class="btn-action btn-block" onclick="removerItem('usuarios', '${key}')"><i class="fas fa-trash"></i></button>
                 `);
@@ -109,7 +114,7 @@ window.renderAllServices = () => {
         tbody.innerHTML = Object.keys(data.servicos).map(key => {
             const s = data.servicos[key];
             return `<tr><td><span class="tag">${s.categoria}</span></td><td>${s.nomePrestador}</td><td>
-                <button class="btn-action" onclick="removerItem('servicos', '${key}')">Remover</button></td></tr>`;
+                <button class="btn-action btn-block" onclick="removerItem('servicos', '${key}')">Remover</button></td></tr>`;
         }).join('');
     });
 }
@@ -122,19 +127,33 @@ window.renderAllComments = () => {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = Object.keys(data.avaliacoes).reverse().map(key => {
             const a = data.avaliacoes[key];
-            return `<tr><td><small>${a.data}</small></td><td>⭐ ${a.nota} - "${a.comentario}"</td>
+            return `<tr><td><small style="color:var(--color-gray-medium);">${a.data}</small></td><td>⭐ ${a.nota} - "${a.comentario}"</td>
                 <td><button class="btn-action btn-block" onclick="removerItem('avaliacoes', '${key}')">Apagar</button></td></tr>`;
         }).join('');
     });
 }
 
 window.alterarStatus = (key, status) => {
-    Swal.fire({ title: 'Confirmar Alteração?', background:'#1e293b', color:'#fff', showCancelButton: true, confirmButtonText: 'Sim' })
+    Swal.fire({ 
+        title: 'Confirmar Alteração?', 
+        background:'#ffffff', 
+        color:'#000000', 
+        showCancelButton: true, 
+        confirmButtonText: 'Sim',
+        confirmButtonColor: '#000000'
+    })
     .then(r => { if(r.isConfirmed) db.ref('usuarios/' + key).update({ status: status }); });
 }
 
 window.removerItem = (path, key) => {
-    Swal.fire({ title: 'Eliminar Permanentemente?', icon: 'warning', background:'#1e293b', color:'#fff', showCancelButton: true, confirmButtonColor: '#d33' })
+    Swal.fire({ 
+        title: 'Eliminar Permanentemente?', 
+        icon: 'warning', 
+        background:'#ffffff', 
+        color:'#000000', 
+        showCancelButton: true, 
+        confirmButtonColor: '#ef4444' 
+    })
     .then(r => { if(r.isConfirmed) db.ref(path + '/' + key).remove(); });
 }
 

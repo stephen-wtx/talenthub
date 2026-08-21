@@ -1,0 +1,72 @@
+/* ==========================================================================
+   MENU HAMBÚRGUER RESPONSIVO DEFINITIVO
+   ========================================================================== */
+
+/* Botão Hambúrguer */
+.hamburger-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--color-black, #000000);
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    z-index: 1001;
+}
+
+.hamburger-btn:hover {
+    background: #f1f5f9;
+}
+
+/* Telas menores que 768px (Mobile & Tablet) */
+@media (max-width: 768px) {
+    
+    /* Força o botão a aparecer */
+    .hamburger-btn {
+        display: block !important;
+    }
+
+    /* Esconde o menu de navegação e botões por padrão no mobile */
+    .mobile-nav-menu {
+        display: none !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        width: 100% !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(12px) !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+        border-bottom: 2px solid #cbd5e1 !important;
+        padding: 20px !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        box-sizing: border-box !important;
+        z-index: 999 !important;
+    }
+
+    /* Exibe o menu quando ativo */
+    .mobile-nav-menu.active {
+        display: flex !important;
+    }
+
+    /* Ajusta botões e links dentro do menu suspenso */
+    .mobile-nav-menu a,
+    .mobile-nav-menu button,
+    .mobile-nav-menu .btn-nav,
+    .mobile-nav-menu .btn-logout,
+    .mobile-nav-menu .btn-outline-small {
+        width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+        padding: 12px !important;
+        box-sizing: border-box !important;
+    }
+
+    .user-info-wrapper, .user-info-header {
+        align-items: center !important;
+        border: none !important;
+        padding: 0 !important;
+        margin-bottom: 8px !important;
+    }
+}

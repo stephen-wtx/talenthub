@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TalentHub - Acesso à Rede</title>
     
+    <!-- Tipografia Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Bibliotecas de Estilo e Ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/responsive.css">
 
     <!-- Firebase Legacy SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
@@ -16,10 +22,16 @@
 </head>
 <body>
 
-    <!-- Fundo Animado -->
+    <!-- Fundo Vivo com Nuvens Online e Glow Futurista -->
+    <div class="futuristic-bg-layer">
+        <div class="cloud-img cloud-1"></div>
+        <div class="cloud-img cloud-2"></div>
+        <div class="cyber-orb orb-1"></div>
+        <div class="cyber-orb orb-2"></div>
+    </div>
+
+    <!-- Fundo de Partículas -->
     <div id="particles-js"></div>
-    <div class="neon-blob"></div>
-    <div class="neon-blob secondary"></div>
 
     <div class="login-wrapper">
         <div class="login-card glass-panel" data-aos="zoom-in-up">
@@ -30,17 +42,23 @@
             </div>
 
             <form id="loginForm">
-                <div class="input-group">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" id="email" placeholder="Endereço de Gmail" required>
+                <div class="form-group">
+                    <label for="email">Endereço de E-mail</label>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="seu.email@exemplo.com" required>
+                    </div>
                 </div>
                 
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" id="senha" placeholder="Palavra-passe" required>
-                    <button type="button" class="eye-btn" onclick="togglePassword()">
-                        <i id="icon-eye" class="fas fa-eye"></i>
-                    </button>
+                <div class="form-group">
+                    <label for="senha">Palavra-passe</label>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="senha" placeholder="Digite sua palavra-passe" required>
+                        <button type="button" class="eye-btn" onclick="togglePassword()">
+                            <i id="icon-eye" class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <button type="submit" id="btnEntrar" class="submit-btn">

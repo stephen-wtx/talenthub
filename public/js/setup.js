@@ -1,3 +1,4 @@
+// Configuração Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyBET-amWuWJ0l5_7kGF7jTSw3eRmUB2D8s",
     authDomain: "talenthub-3301.firebaseapp.com",
@@ -11,14 +12,22 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// Forçar início no topo ao carregar
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+
 // CHAVE MESTRA
 const CHAVE_MESTRA_SISTEMA = "UCM2026"; 
 
 document.getElementById('adminForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const chaveDigitada = document.getElementById('masterKey').value;
+    const chaveDigitada = document.getElementById('masterKey').value.trim();
     const btn = document.getElementById('btnAcao');
+    const nomeInput = document.getElementById('nome').value.trim();
+    const emailInput = document.getElementById('email').value.trim().toLowerCase();
+    const senhaInput = document.getElementById('senha').value;
 
     // Validação de Segurança
     if (chaveDigitada !== CHAVE_MESTRA_SISTEMA) {
@@ -26,9 +35,33 @@ document.getElementById('adminForm').addEventListener('submit', function(e) {
             icon: 'error',
             title: 'Chave Inválida!',
             text: 'Você não tem permissão para realizar esta operação administrativa.',
-            background: '#1e293b',
-            color: '#fff',
+            background: '#ffffff',
+            color: '#000000',
             confirmButtonColor: '#ef4444'
+        });
+        return;
+    }
+
+    if (nomeInput.split(' ').length < 2) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Nome Incompleto',
+            text: 'Por favor, insira o nome completo do gestor.',
+            background: '#ffffff',
+            color: '#000000',
+            confirmButtonColor: '#000000'
+        });
+        return;
+    }
+
+    if (senhaInput.length < 6) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Senha Fraca',
+            text: 'A senha de acesso administrativo deve conter no mínimo 6 caracteres.',
+            background: '#ffffff',
+            color: '#000000',
+            confirmButtonColor: '#000000'
         });
         return;
     }
@@ -37,9 +70,9 @@ document.getElementById('adminForm').addEventListener('submit', function(e) {
     btn.disabled = true;
 
     const novoAdmin = {
-        nome: document.getElementById('nome').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        senha: document.getElementById('senha').value,
+        nome: nomeInput,
+        email: emailInput,
+        senha: senhaInput,
         tipo: "admin", 
         status: "ativo",
         dataCriacao: new Date().toLocaleString()
@@ -52,8 +85,8 @@ document.getElementById('adminForm').addEventListener('submit', function(e) {
             icon: 'success',
             title: 'Acesso Criado!',
             text: 'A nova conta administrativa foi registada com sucesso.',
-            background: '#1e293b',
-            color: '#fff',
+            background: '#ffffff',
+            color: '#000000',
             showConfirmButton: false,
             timer: 2000
         }).then(() => {
@@ -65,8 +98,9 @@ document.getElementById('adminForm').addEventListener('submit', function(e) {
             icon: 'error',
             title: 'Erro de Sistema',
             text: err.message,
-            background: '#1e293b',
-            color: '#fff'
+            background: '#ffffff',
+            color: '#000000',
+            confirmButtonColor: '#000000'
         });
         btn.innerHTML = '<i class="fas fa-user-plus"></i> CRIAR CONTA ADMIN';
         btn.disabled = false;

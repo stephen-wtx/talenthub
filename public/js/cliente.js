@@ -12,6 +12,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// Forçar início no topo ao carregar
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+
 const usuarioLogado = JSON.parse(localStorage.getItem('usuarioAtual'));
 if (!usuarioLogado) window.location.href = 'login.html';
 
@@ -26,7 +31,7 @@ const badge = document.getElementById('tipoUsuarioBadge');
 
 if (usuarioLogado.tipo === 'prestador') {
     badge.innerText = "Modo Profissional";
-    document.getElementById('btnContainer').innerHTML = `<a href="prestador.html" class="btn-nav" style="border-color:var(--accent); margin: auto;"><i class="fas fa-briefcase"></i> Meu Painel</a>`;
+    document.getElementById('btnContainer').innerHTML = `<a href="prestador.html" class="btn-nav" style="border-color:var(--color-black); margin: auto;"><i class="fas fa-briefcase"></i> Meu Painel</a>`;
 } else {
     badge.innerText = "Modo Cliente";
 }
@@ -79,11 +84,11 @@ function carregarServicos() {
                     <div class="rating-avg">${obterMedia(s.emailPrestador, avaliacoes)}</div>
                     <img src="${foto}" class="profile-img-card">
                     <div class="servico-tag">${s.categoria}</div>
-                    <h4 style="margin: 5px 0;">${s.nomePrestador}</h4>
-                    <p style="font-size: 0.8em; opacity: 0.6; margin-bottom: 10px;">📍 ${s.localizacao}</p>
+                    <h4>${s.nomePrestador}</h4>
+                    <p style="font-size: 13px; color: var(--color-gray-medium); margin-bottom: 10px;">📍 ${s.localizacao}</p>
                     <div class="preco">${s.valor} MT</div>
-                    <button class="btn-detalhes" onclick='verPerfil(${JSON.stringify(s)})'>Ver Detalhes</button>
                     <a href="https://wa.me/${dono ? dono.telefone : ''}" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <button class="btn-detalhes" onclick='verPerfil(${JSON.stringify(s)})'>Ver Detalhes</button>
                 </div>`;
         });
     });
@@ -102,20 +107,27 @@ window.verPerfil = function(s) {
     document.getElementById('comentarioAvaliacao').value = "";
     
     document.getElementById('detalhePerfil').innerHTML = `
-        <h2 style="color:var(--accent); margin:0;">${s.categoria}</h2>
-        <p style="font-weight:bold; color: #94a3b8; margin-bottom: 15px;">${s.nomePrestador}</p>
-        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; border-left: 4px solid var(--accent);">
-            <p style="margin:0;"><strong>Valor:</strong> ${s.valor} MT</p>
-            <p style="margin:5px 0 0 0;"><strong>Zona:</strong> ${s.localizacao}</p>
+        <h2 style="color:var(--color-black); margin:0; font-size:22px; font-weight:800;">${s.categoria}</h2>
+        <p style="font-weight:600; color: var(--color-gray-medium); margin-bottom: 16px;">${s.nomePrestador}</p>
+        <div style="background: var(--bg-alt); padding: 14px; border-radius: 6px; border-left: 4px solid var(--color-black);">
+            <p style="margin:0; font-size:15px;"><strong>Valor:</strong> ${s.valor} MT</p>
+            <p style="margin:6px 0 0 0; font-size:15px;"><strong>Zona:</strong> ${s.localizacao}</p>
         </div>
-        <p style="margin-top: 15px; line-height: 1.6; font-style: italic; opacity: 0.9;">"${s.descricao}"</p>
+        <p style="margin-top: 16px; line-height: 1.6; font-style: italic; color: var(--color-gray-medium); font-size:14px;">"${s.descricao}"</p>
     `;
     document.getElementById('modalPerfil').style.display = "block";
 }
 
 document.getElementById('btnEnviarAvaliacao').onclick = function() {
     if (notaSelecionada === 0) {
-        Swal.fire({ icon: 'warning', title: 'Atenção', text: 'Selecione uma nota clicando nas estrelas.', background: '#1e293b', color: '#fff' });
+        Swal.fire({ 
+            icon: 'warning', 
+            title: 'Atenção', 
+            text: 'Selecione uma nota clicando nas estrelas.', 
+            background: '#ffffff', 
+            color: '#000000',
+            confirmButtonColor: '#000000'
+        });
         return;
     }
     
@@ -128,7 +140,15 @@ document.getElementById('btnEnviarAvaliacao').onclick = function() {
     };
 
     db.ref('avaliacoes').push(novaAvaliacao).then(() => {
-        Swal.fire({ icon: 'success', title: 'Sucesso!', text: 'Sua avaliação foi registrada.', background: '#1e293b', color: '#fff', timer: 2000, showConfirmButton: false });
+        Swal.fire({ 
+            icon: 'success', 
+            title: 'Sucesso!', 
+            text: 'Sua avaliação foi registrada.', 
+            background: '#ffffff', 
+            color: '#000000', 
+            timer: 2000, 
+            showConfirmButton: false 
+        });
         fecharModal();
     });
 }
@@ -137,10 +157,10 @@ window.confirmarSair = function() {
     Swal.fire({
         title: 'Sair da conta?',
         icon: 'question',
-        background: '#1e293b',
-        color: '#fff',
+        background: '#ffffff',
+        color: '#000000',
         showCancelButton: true,
-        confirmButtonColor: '#38bdf8',
+        confirmButtonColor: '#000000',
         confirmButtonText: 'Sair agora'
     }).then((result) => {
         if (result.isConfirmed) {
