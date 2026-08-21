@@ -388,6 +388,7 @@ input:focus, select:focus {
     align-items: flex-start;
     gap: 8px;
     font-size: 13px;
+    font-weight: 700;
     line-height: 1.5;
     color: var(--color-gray-medium);
     cursor: pointer;
@@ -408,10 +409,11 @@ input:focus, select:focus {
 .checkbox-container a {
     color: var(--color-black);
     text-decoration: underline;
-    font-weight: 700;
+    font-size: inherit;
+    font-weight: inherit;
 }
 
-/* ================= TERMOS - MOBILE CENTRALIZADO ================= */
+/* ================= TERMOS - MOBILE ================= */
 
 @media (max-width: 480px) {
 
@@ -425,6 +427,7 @@ input:focus, select:focus {
         width: 100%;
         text-align: center;
         font-size: 11px;
+        font-weight: 700;
         line-height: 1.5;
         white-space: normal;
     }
@@ -443,15 +446,19 @@ input:focus, select:focus {
     }
 
     .checkbox-container a {
-        font-size: 11px;
+        font-size: inherit;
+        font-weight: inherit;
         white-space: nowrap;
     }
 }
+
+/* ================= CELULAR PEQUENO ================= */
 
 @media (max-width: 360px) {
 
     .checkbox-container {
         font-size: 10px;
+        font-weight: 700;
     }
 
     .checkbox-container input {
@@ -462,7 +469,8 @@ input:focus, select:focus {
     }
 
     .checkbox-container a {
-        font-size: 10px;
+        font-size: inherit;
+        font-weight: inherit;
     }
 }
 
