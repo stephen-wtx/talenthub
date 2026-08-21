@@ -411,6 +411,62 @@ input:focus, select:focus {
     font-weight: 700;
 }
 
+/* ================= TERMOS - MOBILE CENTRALIZADO ================= */
+
+@media (max-width: 480px) {
+
+    .terms-group {
+        width: 100%;
+        margin: 14px 0 18px;
+    }
+
+    .checkbox-container {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 11px;
+        line-height: 1.5;
+        white-space: normal;
+    }
+
+    .checkbox-container input {
+        width: 14px;
+        height: 14px;
+        min-width: 14px;
+        min-height: 14px;
+        vertical-align: middle;
+        margin: 0 4px 2px 0;
+    }
+
+    .checkbox-container .checkmark {
+        display: none;
+    }
+
+    .checkbox-container a {
+        font-size: 11px;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .checkbox-container {
+        font-size: 10px;
+    }
+
+    .checkbox-container input {
+        width: 13px;
+        height: 13px;
+        min-width: 13px;
+        min-height: 13px;
+    }
+
+    .checkbox-container a {
+        font-size: 10px;
+    }
+}
+
+
 /* Botão de Envio */
 .btn-cadastrar {
     width: 100%;
