@@ -17,23 +17,73 @@ if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
 }
 
+// ============================================================
+// LÓGICA DE DETEÇÃO DE MODO VISITANTE (GUEST)
+// ============================================================
+const urlParams = new URLSearchParams(window.location.search);
+const isGuest = urlParams.get('mode') === 'guest';
 const usuarioLogado = JSON.parse(localStorage.getItem('usuarioAtual'));
-if (!usuarioLogado) window.location.href = 'login.html';
+
+// Se não for visitante E não estiver logado, redireciona para login
+if (!isGuest && !usuarioLogado) {
+    window.location.href = 'login.html';
+}
 
 let servicoSendoAvaliado = null;
 let notaSelecionada = 0;
 
 const categoriasLista = ["Eletricista", "Canalizador", "Carpinteiro", "Pedreiro", "Mecânico", "Programador", "Técnico de informática", "Web designer", "Especialista em redes", "Suporte técnico", "Contabilista", "Secretariado", "Digitador", "Assistente virtual", "Designer gráfico", "Fotógrafo", "Editor de vídeo", "Redator", "Professor", "Tutor", "Formador profissional", "Enfermeiro", "Psicólogo", "Personal trainer", "Massagista", "Motorista", "Entregador", "Serviços de mudanças", "Empregada doméstica", "Jardineiro", "Babá", "Advogado", "Consultor", "Engenheiro"];
 
-// Setup Inicial
-document.getElementById('nomeUsuario').innerText = usuarioLogado.nome;
+// Setup Inicial de acordo com o Tipo de Sessão
+const nomeElem = document.getElementById('nomeUsuario');
 const badge = document.getElementById('tipoUsuarioBadge');
+const btnActionAccount = document.getElementById('btnActionAccount');
 
-if (usuarioLogado.tipo === 'prestador') {
-    badge.innerText = "Modo Profissional";
-    document.getElementById('btnContainer').innerHTML = `<a href="prestador.html" class="btn-nav" style="border-color:var(--color-black); margin: auto;"><i class="fas fa-briefcase"></i> Meu Painel</a>`;
-} else {
-    badge.innerText = "Modo Cliente";
+if (isGuest) {
+    nomeElem.innerText = "Visitante";
+    badge.innerText = "Modo Convidado";
+    if (btnActionAccount) {
+        btnActionAccount.title = "Criar Conta / Login";
+        btnActionAccount.innerHTML = `<i class="fas fa-sign-in-alt"></i>`;
+    }
+} else if (usuarioLogado) {
+    nomeElem.innerText = usuarioLogado.nome;
+    if (usuarioLogado.tipo === 'prestador') {
+        badge.innerText = "Modo Profissional";
+        document.getElementById('btnContainer').innerHTML = `<a href="prestador.html" class="btn-nav" style="border-color:var(--color-black); margin: auto;"><i class="fas fa-briefcase"></i> Meu Painel</a>`;
+    } else {
+        badge.innerText = "Modo Cliente";
+    }
+}
+
+// ============================================================
+// FUNÇÃO CENTRAL DE ALERTA PARA VISITANTES
+// ============================================================
+function alertaRequerCadastro(mensagemAcao) {
+    Swal.fire({
+        title: '<i class="fas fa-user-lock" style="color:#000;"></i> Registo Necessário',
+        html: `Para <strong>${mensagemAcao}</strong>, precisa de criar uma conta ou iniciar sessão na plataforma <strong>TalentHub</strong>.`,
+        icon: 'info',
+        background: '#ffffff',
+        color: '#000000',
+        showCancelButton: true,
+        confirmButtonColor: '#000000',
+        cancelButtonColor: '#475569',
+        confirmButtonText: 'Criar Conta / Login',
+        cancelButtonText: 'Continuar a Explorar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = 'cadastro.html';
+        }
+    });
+}
+
+function bloquearPerfilVisitante() {
+    if (isGuest) {
+        alertaRequerCadastro("aceder e editar o seu perfil");
+    } else {
+        window.location.href = 'perfil.html';
+    }
 }
 
 function popularCategoriasFiltro() {
@@ -70,14 +120,15 @@ function carregarServicos() {
         grid.innerHTML = '';
         servicos.filter(s => {
             const dono = usuarios.find(u => u.email === s.emailPrestador);
-            const ativo = dono && dono.status !== 'bloqueado' && s.emailPrestador !== usuarioLogado.email;
+            const emailAtual = usuarioLogado ? usuarioLogado.email : '';
+            const ativo = dono && dono.status !== 'bloqueado' && s.emailPrestador !== emailAtual;
             const matchText = s.nomePrestador.toLowerCase().includes(texto) || s.descricao.toLowerCase().includes(texto);
             const matchCat = categoriaFiltro === "" || s.categoria === categoriaFiltro;
             const matchBairro = bairroReal === "" || s.localizacao.toLowerCase().includes(bairroReal);
             return ativo && matchText && matchCat && matchBairro;
         }).reverse().forEach(s => {
             const dono = usuarios.find(u => u.email === s.emailPrestador);
-            const foto = dono.fotoBase64 || `https://ui-avatars.com/api/?name=${encodeURIComponent(s.nomePrestador)}&background=0f172a&color=fff`;
+            const foto = (dono && dono.fotoBase64) ? dono.fotoBase64 : `https://ui-avatars.com/api/?name=${encodeURIComponent(s.nomePrestador)}&background=0f172a&color=fff`;
 
             grid.innerHTML += `
                 <div class="card-prestador">
@@ -95,6 +146,10 @@ function carregarServicos() {
 }
 
 window.marcarEstrelas = function(n) {
+    if (isGuest) {
+        alertaRequerCadastro("submeter uma avaliação");
+        return;
+    }
     notaSelecionada = n;
     const estrelas = document.querySelectorAll('.star');
     estrelas.forEach((s, i) => s.classList.toggle('active', i < n));
@@ -103,7 +158,9 @@ window.marcarEstrelas = function(n) {
 window.verPerfil = function(s) {
     servicoSendoAvaliado = s;
     notaSelecionada = 0;
-    marcarEstrelas(0);
+    
+    // Se não for convidado, limpa visual das estrelas
+    if (!isGuest) marcarEstrelas(0);
     document.getElementById('comentarioAvaliacao').value = "";
     
     document.getElementById('detalhePerfil').innerHTML = `
@@ -119,6 +176,11 @@ window.verPerfil = function(s) {
 }
 
 document.getElementById('btnEnviarAvaliacao').onclick = function() {
+    if (isGuest) {
+        alertaRequerCadastro("enviar um comentário ou avaliação");
+        return;
+    }
+
     if (notaSelecionada === 0) {
         Swal.fire({ 
             icon: 'warning', 
@@ -154,6 +216,11 @@ document.getElementById('btnEnviarAvaliacao').onclick = function() {
 }
 
 window.confirmarSair = function() {
+    if (isGuest) {
+        window.location.href = 'login.html';
+        return;
+    }
+    
     Swal.fire({
         title: 'Sair da conta?',
         icon: 'question',

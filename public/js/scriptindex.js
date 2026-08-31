@@ -116,6 +116,7 @@ const usuarioAtivo = JSON.parse(localStorage.getItem('usuarioAtual'));
 
 // Seletor da área de navegação
 const navArea = document.getElementById('nav-area');
+const drawerBody = document.getElementById('drawerBody');
 
 // Se houver usuário ativo, adiciona link para o Painel correspondente
 if (usuarioAtivo && navArea) {
@@ -127,12 +128,53 @@ if (usuarioAtivo && navArea) {
         destino = 'admin.html';
     }
     
-    // Adiciona o link com destaque
+    // Adiciona o link com destaque no header desktop
     navArea.innerHTML += `
         <a href="${destino}" class="panel-link" style="color: #000000 !important; font-weight: 700;">
             PAINEL (${usuarioAtivo.nome.split(' ')[0]}) <i class="fas fa-arrow-right"></i>
         </a>
     `;
+
+    // Adiciona também no drawer móvel
+    if (drawerBody) {
+        drawerBody.innerHTML += `
+            <a href="${destino}" style="background: var(--color-black) !important; color: #ffffff !important; font-weight: 700;">
+                <i class="fas fa-user-shield" style="margin-right:8px;"></i> MEU PAINEL (${usuarioAtivo.nome.split(' ')[0]})
+            </a>
+        `;
+    }
+}
+
+// Controle do Menu Hambúrguer Móvel
+const btnHamburger = document.getElementById('btnHamburger');
+const btnCloseDrawer = document.getElementById('btnCloseDrawer');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const drawerOverlay = document.getElementById('drawerOverlay');
+
+function abrirDrawer() {
+    if (mobileDrawer && drawerOverlay) {
+        mobileDrawer.classList.add('active');
+        drawerOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function fecharDrawer() {
+    if (mobileDrawer && drawerOverlay) {
+        mobileDrawer.classList.remove('active');
+        drawerOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+if (btnHamburger) btnHamburger.addEventListener('click', abrirDrawer);
+if (btnCloseDrawer) btnCloseDrawer.addEventListener('click', fecharDrawer);
+if (drawerOverlay) drawerOverlay.addEventListener('click', fecharDrawer);
+
+if (drawerBody) {
+    drawerBody.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', fecharDrawer);
+    });
 }
 
 // Função para renderizar a vitrine de talentos em tempo real

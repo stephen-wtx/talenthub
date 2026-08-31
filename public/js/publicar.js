@@ -22,7 +22,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// Forçar início no topo ao carregar
 if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
 }

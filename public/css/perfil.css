@@ -17,23 +17,17 @@
     box-sizing: border-box;
 }
 
-html {
-    width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
+html, body {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
 }
 
 body { 
-    width: 100%;
-    max-width: 100vw;
     background-color: var(--bg-page); 
     font-family: var(--font-main) !important; 
     color: var(--color-black);
     min-height: 100vh;
-    min-height: 100dvh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: relative;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -113,12 +107,11 @@ body {
     background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, rgba(59, 130, 246, 0) 70%);
 }
 
-/* ================= HEADER RESPONSIVO ================= */
+/* ================= HEADER ================= */
 #main-header { 
-    background: rgba(255, 255, 255, 0.94); 
+    background: rgba(255, 255, 255, 0.95); 
     backdrop-filter: blur(12px); 
-    -webkit-backdrop-filter: blur(12px);
-    padding: clamp(10px, 2vw, 14px) 0; 
+    padding: 14px 0; 
     border-bottom: 2px solid var(--color-gray-light);
     position: sticky; 
     top: 0; 
@@ -128,21 +121,19 @@ body {
 .header-container {
     max-width: 1240px;
     margin: 0 auto;
-    padding: 0 clamp(12px, 3vw, 20px);
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 12px;
 }
 
 .logo-text { 
     font-weight: 800 !important; 
     letter-spacing: -0.5px; 
     margin: 0; 
-    font-size: clamp(18px, 4vw, 24px) !important; 
+    font-size: clamp(20px, 4vw, 24px) !important; 
     color: var(--color-black); 
     text-transform: uppercase;
-    white-space: nowrap;
 }
 
 .logo-text span { 
@@ -151,18 +142,17 @@ body {
 
 .btn-voltar { 
     color: var(--color-black); 
-    font-size: 13px !important; 
+    font-size: 14px !important; 
     font-weight: 600 !important;
     background: var(--bg-alt);
     border: 1px solid var(--color-gray-light); 
-    padding: 7px 16px; 
+    padding: 8px 18px; 
     border-radius: 6px; 
     cursor: pointer; 
     transition: all 0.2s ease; 
     display: inline-flex; 
     align-items: center; 
-    gap: 6px;
-    white-space: nowrap;
+    gap: 8px;
 }
 
 .btn-voltar:hover { 
@@ -175,26 +165,24 @@ body {
 .container { 
     max-width: 540px; 
     width: 100%; 
-    margin: clamp(20px, 4vw, 40px) auto; 
+    margin: clamp(20px, 5vw, 40px) auto; 
     padding: 0 16px;
     position: relative;
     z-index: 10;
 }
 
 .profile-card {
-    background: rgba(255, 255, 255, 0.96); 
+    background: rgba(255, 255, 255, 0.95); 
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    padding: clamp(22px, 5vw, 40px); 
+    padding: clamp(20px, 5vw, 40px); 
     border-radius: 12px; 
     border: 2px solid var(--color-gray-light);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
-    width: 100%;
 }
 
 .photo-section { 
     text-align: center; 
-    margin-bottom: clamp(20px, 4vw, 30px); 
+    margin-bottom: 30px; 
 }
 
 .profile-img-container {
@@ -203,25 +191,25 @@ body {
 }
 
 .profile-img { 
-    width: clamp(80px, 16vw, 110px); 
-    height: clamp(80px, 16vw, 110px); 
+    width: clamp(90px, 15vw, 120px); 
+    height: clamp(90px, 15vw, 120px); 
     border-radius: 50%; 
     object-fit: cover; 
     border: 3px solid var(--color-black); 
     background: var(--bg-alt); 
     cursor: pointer; 
-    transition: transform 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .profile-img:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
 }
 
 .photo-label { 
-    margin-top: 10px; 
+    margin-top: 12px; 
     color: var(--color-black); 
     font-weight: 700; 
-    font-size: 13px !important; 
+    font-size: 14px !important; 
     cursor: pointer; 
     display: inline-block; 
 }
@@ -235,7 +223,7 @@ body {
 }
 
 .form-group { 
-    margin-bottom: 18px; 
+    margin-bottom: 20px; 
 }
 
 label { 
@@ -255,8 +243,8 @@ input {
     border-radius: 6px; 
     color: var(--color-black) !important; 
     font-family: var(--font-main) !important;
-    font-size: 16px !important;
-    min-height: 46px;
+    font-size: 15px !important;
+    min-height: 44px;
     outline: none; 
     transition: all 0.2s ease; 
     box-sizing: border-box;
@@ -264,7 +252,6 @@ input {
 
 input::placeholder {
     color: var(--color-placeholder);
-    font-size: 14px;
 }
 
 input:focus { 
@@ -274,7 +261,7 @@ input:focus {
 }
 
 input:disabled { 
-    background: #f8fafc; 
+    background: var(--bg-alt); 
     color: var(--color-placeholder) !important; 
     cursor: not-allowed;
 }
@@ -289,9 +276,9 @@ input:disabled {
     font-family: var(--font-main);
     font-weight: 700; 
     font-size: 15px !important; 
-    min-height: 48px;
+    min-height: 44px;
     cursor: pointer; 
-    margin-top: 22px; 
+    margin-top: 24px; 
     transition: all 0.2s ease; 
     text-transform: uppercase;
 }
@@ -309,8 +296,8 @@ input:disabled {
 }
 
 .password-section { 
-    margin-top: 24px; 
-    padding-top: 18px; 
+    margin-top: 28px; 
+    padding-top: 20px; 
     border-top: 1px solid var(--color-gray-light); 
 }
 
@@ -318,7 +305,7 @@ input:disabled {
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    margin-bottom: 14px; 
+    margin-bottom: 16px; 
 }
 
 .btn-toggle-password { 
@@ -334,30 +321,61 @@ input:disabled {
     transition: all 0.2s ease;
 }
 
-.btn-toggle-password:hover { 
-    background: var(--color-black); 
-    color: #ffffff; 
+.btn-toggle-password:hover {
+    background: var(--color-black);
+    color: #ffffff;
 }
 
 #areaNovaSenha { 
     display: none; 
-    margin-top: 14px; 
+    margin-top: 16px; 
     background: var(--bg-alt); 
-    padding: 14px; 
+    padding: 16px; 
     border-radius: 6px; 
     border: 1px solid var(--color-gray-light); 
 }
 
 .input-hint { 
-    font-size: 11px !important; 
+    font-size: 12px !important; 
     color: var(--color-gray-medium); 
-    margin-top: 4px; 
+    margin-top: 6px; 
     display: block; 
     font-weight: 500;
 }
 
+/* ================= RESPONSIVIDADE PERFIL ================= */
+@media (max-width: 600px) {
+    .header-container {
+        padding: 0 clamp(10px, 3vw, 16px);
+    }
+
+    .logo-text {
+        font-size: clamp(18px, 4vw, 22px) !important;
+    }
+
+    .btn-voltar {
+        padding: 6px 12px;
+        font-size: 13px !important;
+    }
+
+    .profile-card {
+        padding: clamp(20px, 4vw, 32px) clamp(14px, 3.5vw, 24px);
+    }
+}
+
 @media (max-width: 360px) {
     .profile-card {
-        padding: 20px 12px;
+        padding: 16px 10px !important;
+    }
+
+    .password-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .btn-toggle-password {
+        width: 100%;
+        text-align: center;
     }
 }

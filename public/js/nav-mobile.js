@@ -4,16 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Procura os links de navegação
     const navLinks = headerContainer.querySelector('.nav-links, #nav-area');
-    if (!navLinks) return;
 
     // Cria o Botão Hambúrguer se não existir
     if (!document.querySelector('.hamburger-btn')) {
         const hamburgerBtn = document.createElement('button');
         hamburgerBtn.className = 'hamburger-btn';
-        hamburgerBtn.setAttribute('aria-label', 'Abrir Menu de Navegação');
+        hamburgerBtn.setAttribute('aria-label', 'Abrir Menu');
         hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
-        
-        // Insere o botão hambúrguer no container do header
         headerContainer.appendChild(hamburgerBtn);
 
         // Cria o Overlay e o Drawer Offcanvas
@@ -27,36 +24,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const drawerHeader = document.createElement('div');
         drawerHeader.className = 'drawer-header';
         drawerHeader.innerHTML = `
-            <strong>MENU</strong>
+            <strong style="font-size:18px; font-weight:800; color:#000;">MENU</strong>
             <button class="drawer-close-btn" aria-label="Fechar Menu"><i class="fas fa-times"></i></button>
         `;
         drawer.appendChild(drawerHeader);
 
-        // Corpo do Drawer
+        // Corpo do Drawer (Apenas links de navegação)
         const drawerBody = document.createElement('div');
         drawerBody.className = 'drawer-body';
-        drawer.appendChild(drawerBody);
 
+        if (navLinks) {
+            Array.from(navLinks.children).forEach(link => {
+                drawerBody.appendChild(link.cloneNode(true));
+            });
+        }
+
+        drawer.appendChild(drawerBody);
         document.body.appendChild(overlay);
         document.body.appendChild(drawer);
 
-        // Função para sincronizar os links no drawer (inclui links dinâmicos como o link de Painel)
-        const syncDrawerLinks = () => {
-            drawerBody.innerHTML = '';
-            if (navLinks) {
-                Array.from(navLinks.children).forEach(link => {
-                    if (link.tagName === 'A') {
-                        const cloned = link.cloneNode(true);
-                        cloned.addEventListener('click', closeDrawer);
-                        drawerBody.appendChild(cloned);
-                    }
-                });
-            }
-        };
-
         // Funções para Abrir e Fechar
         const openDrawer = () => {
-            syncDrawerLinks();
             drawer.classList.add('active');
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -72,11 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
         drawer.querySelector('.drawer-close-btn').addEventListener('click', closeDrawer);
         overlay.addEventListener('click', closeDrawer);
 
-        // Fechar ao pressionar a tecla Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && drawer.classList.contains('active')) {
-                closeDrawer();
-            }
+        drawerBody.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeDrawer);
         });
     }
 });

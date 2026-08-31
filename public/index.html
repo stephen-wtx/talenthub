@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TalentHub | O Futuro do Trabalho em Cabo Delgado</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="./img/icon.jpg">
+
     <!-- Tipografia Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +17,6 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/styleindex.css">
-    <link rel="stylesheet" href="./css/responsive.css">
 
     <!-- Firebase Legacy SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
@@ -41,31 +43,47 @@
             
             <nav id="nav-area" class="nav-links">
                 <a href="#hero">HOME</a>
-                <a href="#vitrine">TALENTOS</a>
-                <a href="#tecnologia">TECNOLOGIA</a>
+                <a href="cliente.html?mode=guest">TALENTOS</a>
                 <a href="#sobre">SOBRE NÓS</a>
                 <a href="#suporte">SUPORTE</a>
             </nav>
 
             <div class="header-actions">
                 <a href="login.html" class="glass-btn login-btn">
-                    ACEDER À REDE <i class="fas fa-arrow-right"></i>
+                    LOGIN <i class="fas fa-arrow-right"></i>
                 </a>
+                <button class="hamburger-btn" id="btnHamburger" aria-label="Abrir Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </header>
+
+    <!-- Drawer Mobile & Overlay -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <strong style="color:var(--color-black);">TALENT<span style="color:var(--color-gray-medium);">HUB</span></strong>
+            <button class="drawer-close-btn" id="btnCloseDrawer" aria-label="Fechar Menu"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="drawer-body" id="drawerBody">
+            <a href="#hero"><i class="fas fa-home" style="margin-right:8px;"></i> HOME</a>
+            <a href="cliente.html?mode=guest"><i class="fas fa-users" style="margin-right:8px;"></i> TALENTOS</a>
+            <a href="#sobre"><i class="fas fa-info-circle" style="margin-right:8px;"></i> SOBRE NÓS</a>
+            <a href="#suporte"><i class="fas fa-headset" style="margin-right:8px;"></i> SUPORTE</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero-section" id="hero">
         <div class="hero-container">
             <div class="hero-text-side" data-aos="fade-right">
-                <span class="sub-tagline">PLATAFORMA ULTRARRÁPIDA</span>
-                <h1 class="hero-title">CONSTRUÍDO PARA O <br><span id="typed-text">FUTURO.</span></h1>
-                <p class="hero-description">O maior ecossistema de talentos digitais e manuais de Cabo Delgado. Encontre profissionais qualificados com precisão e velocidade.</p>
+                <span class="sub-tagline">VALORIZAÇÃO & OPORTUNIDADES</span>
+                <h1 class="hero-title">ONDE O SEU TALENTO TEM <br><span id="typed-text">VALOR.</span></h1>
+                <p class="hero-description">Damos visibilidade e voz aos melhores profissionais de Pemba e Cabo Delgado. Descubra especialistas qualificados e apoie quem faz o mercado local crescer.</p>
                 
                 <div class="hero-actions">
-                    <a href="#vitrine" class="btn-black">EXPLORAR AGORA <i class="fas fa-arrow-right"></i></a>
-                    <a href="cadastro.html" class="btn-outline">REGISTAR-ME</a>
+                    <a href="cliente.html?mode=guest" class="btn-black">EXPLORAR TALENTOS <i class="fas fa-arrow-right"></i></a>
                 </div>
 
                 <!-- 4 Múltiplos Ícones abaixo do botão -->
@@ -102,54 +120,21 @@
         </div>
     </section>
 
-    <!-- Technical Specifications Bar -->
-    <section class="specs-bar-section" id="tecnologia" data-aos="fade-up">
-        <div class="specs-container">
-            <div class="specs-black-title">
-                <span>ESPECIFICAÇÕES</span>
-                <h3>TÉCNICAS</h3>
-            </div>
-            
-            <div class="specs-grid">
-                <div class="spec-col">
-                    <label>CONEXÃO</label>
-                    <strong>Rede UCM 5.3</strong>
-                    <small>Segura | Estável</small>
-                </div>
-                <div class="spec-col">
-                    <label>LATÊNCIA</label>
-                    <strong>5 MINUTOS</strong>
-                    <small>Resposta Imediata</small>
-                </div>
-                <div class="spec-col">
-                    <label>QUALIDADE</label>
-                    <strong>PERFIS VERIFICADOS</strong>
-                    <small>Avaliação Manual</small>
-                </div>
-                <div class="spec-col">
-                    <label>COBERTURA</label>
-                    <strong>PEMBA & REGIÃO</strong>
-                    <small>Cabo Delgado</small>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção de Destaque Circular de Latência -->
+    <!-- Seção de Impacto e Valorização dos Talentos de Pemba -->
     <section class="latency-feature-section" data-aos="fade-up">
         <div class="latency-container">
             <div class="latency-text">
-                <h2>RESPOSTA RÁPIDA DE CONEXÃO</h2>
-                <p>Fique à frente com a nossa plataforma de alta velocidade. Encontre e contacte profissionais em tempo real com facilidade absoluta.</p>
-                <a href="#vitrine" class="btn-outline-small">SABER MAIS <i class="fas fa-chevron-right"></i></a>
+                <span class="sub-tagline" style="color: var(--accent, #38bdf8); font-weight: 700; font-size: 0.85em; letter-spacing: 1.5px; display: block; margin-bottom: 8px;">IMPACTO REAL EM CABO DELGADO</span>
+                <h2>VALORIZANDO O TALENTO LOCAL</h2>
+                <p>Conectamos diretamente quem precisa de soluções a especialistas qualificados em Pemba. Promovemos a inclusão digital, a transparência e oportunidades reais para os profissionais da nossa região.</p>
             </div>
 
             <div class="latency-circle-display">
                 <div class="radar-circle">
                     <div class="radar-inner">
-                        <i class="fas fa-crown"></i>
-                        <span class="big-stat">&lt; 5MIN</span>
-                        <small>CONEXÃO DIRETA</small>
+                        <i class="fas fa-handshake" style="font-size: 2em; margin-bottom: 5px; color: var(--accent, #000);"></i>
+                        <span class="big-stat" style="font-size: 1.8em; font-weight: 800;">100%</span>
+                        <small style="letter-spacing: 1px; font-weight: 700;">CONEXÃO LOCAL</small>
                     </div>
                 </div>
             </div>
@@ -265,7 +250,6 @@
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="./js/nav-mobile.js"></script>
     <script src="./js/scriptindex.js"></script>
 </body>
 </html>
