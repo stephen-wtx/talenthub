@@ -206,8 +206,8 @@ function renderizarVitrine() {
         // Limpa a vitrine antes de renderizar
         vitrine.innerHTML = ''; 
 
-        // Renderiza os últimos 8 serviços cadastrados (ordem reversa)
-        servicosAtivos.slice(-8).reverse().forEach(s => {
+        // Renderiza os últimos 3 serviços cadastrados (ordem reversa)
+        servicosAtivos.slice(-3).reverse().forEach(s => {
             const dono = usuarios.find(u => u.email === s.emailPrestador);
             
             // Define a foto (banco ou fallback de iniciais)

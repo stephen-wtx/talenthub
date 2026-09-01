@@ -1,13 +1,119 @@
 const categoriasLista = [
-    "Eletricista", "Canalizador", "Carpinteiro", "Pedreiro", "Mecânico", 
-    "Programador", "Técnico de informática", "Web designer", "Especialista em redes", 
-    "Suporte técnico", "Contabilista", "Secretariado", "Digitador", 
-    "Assistente virtual", "Designer gráfico", "Fotógrafo", "Editor de vídeo", 
-    "Redator", "Professor", "Tutor", "Formador profissional", "Enfermeiro", 
-    "Psicólogo", "Personal trainer", "Massagista", "Motorista", "Entregador", 
-    "Serviços de mudanças", "Empregada doméstica", "Jardineiro", "Babá", 
-    "Advogado", "Consultor", "Engenheiro"
+  // Construção e manutenção
+  "Eletricista",
+  "Canalizador",
+  "Carpinteiro",
+  "Pedreiro",
+  "Pintor",
+  "Serralheiro",
+  "Soldador",
+  "Técnico de ar condicionado",
+  "Técnico de refrigeração",
+  "Técnico de energia solar",
+  "Mecânico",
+  "Bate-chapas",
+  "Jardineiro",
+
+  // Tecnologia
+  "Programador",
+  "Técnico de informática",
+  "Web designer",
+  "Designer UI/UX",
+  "Especialista em redes",
+  "Suporte técnico",
+  "Técnico de CCTV",
+  "Técnico de eletrónica",
+  "Técnico de telemóveis",
+
+  // Administração e negócios
+  "Contabilista",
+  "Secretariado",
+  "Digitador",
+  "Assistente virtual",
+  "Consultor",
+  "Gestor de projetos",
+  "Recursos humanos",
+  "Revisor de texto",
+
+  // Design e criatividade
+  "Designer gráfico",
+  "Ilustrador",
+  "Fotógrafo",
+  "Editor de vídeo",
+  "Videógrafo",
+  "Animador",
+  "Redator",
+  "Copywriter",
+  "Poeta",
+  "Escritor",
+
+  // Música e entretenimento
+  "Cantor",
+  "Músico",
+  "DJ",
+  "Dançarino",
+  "Coreógrafo",
+  "Ator",
+  "Comediante",
+  "Apresentador",
+  "Animador de eventos",
+
+  // Educação
+  "Professor",
+  "Tutor",
+  "Formador profissional",
+  "Professor de música",
+  "Professor de dança",
+  "Professor de línguas",
+
+  // Saúde e bem-estar
+  "Enfermeiro",
+  "Psicólogo",
+  "Nutricionista",
+  "Personal trainer",
+  "Massagista",
+  "Instrutor de yoga",
+
+  // Beleza
+  "Cabeleireiro",
+  "Barbeiro",
+  "Maquilhador",
+  "Manicure",
+  "Pedicure",
+  "Esteticista",
+
+  // Transporte e logística
+  "Motorista",
+  "Entregador",
+  "Serviços de mudanças",
+  "Motorista particular",
+  "Guia turístico",
+
+  // Casa e família
+  "Empregada doméstica",
+  "Babá",
+  "Cuidador de idosos",
+  "Cuidador de pessoas com deficiência",
+  "Lavandaria",
+  "Passadeira",
+
+  // Eventos
+  "Organizador de eventos",
+  "Decorador de eventos",
+  "Fotógrafo de eventos",
+  "Catering",
+  "Garçom",
+  "Segurança",
+
+  // Jurídico e engenharia
+  "Advogado",
+  "Engenheiro",
+  "Arquiteto",
+  "Topógrafo",
+  "Consultor financeiro",
+  "Consultor jurídico"
 ];
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyBET-amWuWJ0l5_7kGF7jTSw3eRmUB2D8s",
