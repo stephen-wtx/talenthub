@@ -252,7 +252,7 @@ window.verDetalhesSeguro = () => {
         });
     } else {
         // Redireciona para a área logada do cliente para ver detalhes
-        window.location.href = 'cliente.html';
+        window.location.href = 'cliente.html?mode=guest';
     }
 }
 
